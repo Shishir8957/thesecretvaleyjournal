@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage</title>
+    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+        body{
+            background: url("{% static 'image/background1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            background-repeat: no-repeat;
+        }
+        nav {
+            box-shadow: none;
+            position: sticky;
+            top: 0;
+            transition: 1s ease;
+            min-width: 100%;
+        }
+
+        .nav-wrapper {
+            background-color: rgb(0, 0, 0);
+        }
+
+        nav ul a:hover {
+            background-color: transparent;
+            color: #c700ff;
+            font-size: bold;
+        }
+
+        .account{
+            background-color: #C4C4C4;
+            max-height: 45rem;
+            width: 30rem;
+            margin: 15% auto 0px auto;
+            border-radius: 3px;
+        }
+        .tabs .indicator {
+            height: 48px;
+            background-color: #ffffffa3;
+            border-radius: 38px;
+        }    
+        .tabs a:active{
+            background-color: #ffffff;
+            border-radius: 38px;
+        }
+        .tabs{
+            background-color: black;
+            border-radius: 38px;
+        }
+        .tabs .tab a:focus, .tabs .tab a:focus.active {
+            background-color: transparent;
+            outline: none;
+        }
+        .sidenav-overlay{
+            opacity: 0;
+            position: unset;
+        }
+
+        @media screen and (max-width: 700px) {
+            nav .brand-logo {
+                font-size: 1.5rem;
+            }
+            .sidenav-overlay{
+                opacity: 0;
+                position: unset;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- nav  -->
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <a type="submit" href="register" class="waves-effect waves-dark btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            </ul>
+            <!-- for small screen menu -->
+            <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <div class="container">
+                    <a type="button" href="register" class="waves-effect waves-light btn black white-text">
+                        <b>Sign In</b>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <header>
+        <!-- signin card -->
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m12 l12" style="display:flex; justify-content:center;">
+                    <div class="account">
+                        <ul class="tabs" style="margin: 30px 20px; border-radius: 30px; width: 90%;">
+                            <li class="tab col s6">
+                                <a href="#login" class="active white-text text-darken-4">Login</a>
+                            </li>
+                            <li class="tab col s6">
+                                <a href="#signin" class="white-text text-darken-4">Signin</a>
+                            </li>
+                        </ul>
+                        
+                        <!-- login -->
+                        <div id="login" class="col s12">
+                            <form id="login" class="input-group" action="login" method="post" style="margin: 3rem 2rem;">
+                                {% csrf_token %}
+                                {% for message in messages %}
+                                    <p style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
+                                {% endfor %}
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input type="email" id="email" name="email" required>
+                                    <label for="email">Email or Username</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">key</i>
+                                    <input type="password" id="password" name="password" required>
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field">
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" required>
+                                            <span>Remember Me</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="input-field center">
+                                    <button type="submit" href="#" class="btn btn-primary black">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- signup -->
+                        <div id="signin" class="col s12">
+                            <form id="register" class="input-group" action="signin" method="post" style="margin: 2rem 2rem;">
+                                {% csrf_token %}
+                                {% for message in messages %}
+                                    <h3 style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</h3>
+                                {% endfor %}
+                                <div class="input-field">
+                                    <i class="material-icons prefix">person</i>
+                                    <input type="text" id="Username" name="username" required>
+                                    <label for="Username">Username</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">person_outline</i>
+                                    <input type="text" id="Firstname" name="first_name" required>
+                                    <label for="Firstname">Name</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input type="email" id="_email" name="email" required>
+                                    <label for="_email">Email</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">key</i>
+                                    <input type="password" id="_password" name="password1" required>
+                                    <label for="_password">Password</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">key</i>
+                                    <input type="password" id="confirm_password" name="password2" required>
+                                    <label for="confirm_password">Confirm Password</label>
+                                </div>
+                                <div class="input-field">
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" required>
+                                            <span>I agree to the terms and conditions.</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="input-field center">
+                                    <button type="submit" href="#" class="btn btn-primary black">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav();
+            $('.tooltipped').tooltip();
+            $('.tabs').tabs();
+        });
+      //$(window).on('scroll',function () {
+      //    if ($(window).scrollTop()) {
+      //        $('nav').removeClass('transparent');
+      //    } else{
+      //        $('nav').addClass('transparent');
+      //    }
+      //});
+    </script>
+</body>
+
+</html>

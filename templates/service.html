@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage</title>
+    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/style_all_blog.css' %}">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        nav {
+            box-shadow: none;
+            position: sticky;
+            top: 0;
+            transition: 1s ease;
+            min-width: 100%;
+        }
+
+        .nav-wrapper {
+            background-color: rgb(0, 0, 0);
+        }
+
+        nav ul a:hover {
+            background-color: transparent;
+            color: #c700ff;
+            font-size: bold;
+        }
+
+        .bi{
+            font-size: 2rem;
+        }
+
+        header {
+            background: url("{% static './image/night_photography_4k.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            min-height: 200px;
+        }
+        .leftcard{
+            background: url("https://images.hdqwalls.com/wallpapers/burning-rose-4k-1k.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 25rem;
+            width: 100%;
+        }
+        .sidenav-overlay{
+            opacity: 0;
+            position: unset;
+        }
+        .truncate2{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+        } 
+        .card{
+            background-color: #eaeaea;
+            position: unset;
+            max-width: 100%;
+        }
+        .elementsContainer{
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .boxContainer{
+            margin: auto;
+            margin-top: 3rem;
+            position: unset;
+            max-width: 50%;
+            height: 42px;
+            border: 4px solid #495862;
+            padding: 0px 10px;
+            border-radius: 50px;
+
+        }
+        .search{
+            border: none;
+            width: 100%;
+            height: 100%;
+            padding: 0px 5px;
+            font-size: 18px;
+            color: #424242;
+            font-weight: 500;
+            border-radius: 1rem
+        }
+        .search:focus{
+            outline: none;
+        }
+        td,th{
+            padding: 0;
+        }
+
+        @media screen and (max-width: 700px) {
+            nav .brand-logo {
+                font-size: 1.5rem;
+            }
+            .sidenav-overlay{
+                opacity: 0;
+                position: unset;
+            }
+        }
+        @media screen and (max-width: 500px){
+            .card{
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- nav  -->
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <a type="submit" href="register" class="waves-effect waves-dark btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            </ul>
+            <!-- for small screen menu -->
+            <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <div class="container">
+                    <a type="button" href="register" class="waves-effect waves-light btn black white-text">
+                        <b>Sign In</b>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <!-- header -->
+    <header>
+        <div class="container center" style="padding: 4rem 0vh;">
+            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">Services</h1></div>
+        </div>
+    </header>
+
+    <!-- tags -->
+    {% for tag in tags %}
+        <div>
+            <h1>{{tag.tag_name}}</h1>
+        </div>
+    {% endfor%}
+    <div class="row" style="margin:0rem;">
+        <div class="col-12 col-lg-6 center">
+            <div class="hoverable" style="justify-content:center; padding: 4rem; height: 100%; background-color: #374348; border-radius: 0.2rem;margin: 2rem;height: auto;">
+                <a style="font-family:Bahianita;"> <h2> Why We Exist ? </h2></a>
+                <p style="margin:1.5rem; line-height: 1.6; font-size: 1.2rem; color: white;">We are here to earn from 
+                    google revenue and Steals
+                    other ideas and posts as ours. 
+                    So please don't skip our ads
+                    and please try to click on 
+                    ads as much as you can.<br>
+                    Thank you!!
+                </p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 center" style="padding: 2rem;">
+            <div class="leftcard hoverable" style="border-radius:0.2rem;"></div>    
+        </div>
+    </div>
+
+    <footer class="page-footer black darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5>The secret valley journal</h5>
+                    <p>The things we do is not normal here</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Usefull Links</h5>
+                    <a href="/blog" style="color:white;">blog</a><br>
+                    <a href="/contact" style="color:white;">Contact</a><br>
+                    <a href="/service" style="color:white;">Services</a><br>  
+                    <a href="" style="color:white;">hot news</a><br>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <a>Kathmandu, Nepal</a>
+                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>+977 987654321</a>
+                </div>
+            </div>
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <div class="d-flex justify-content-evenly" >
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-github"></i>
+                <i class="bi bi-youtube"></i>
+            </div>
+            <div class="container">
+                <div style="height: 1rem;"></div>
+            </div>
+        </div>
+
+        <div class="footer-copyright black darken-4">
+            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+        </div>
+    </footer>
+
+    
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav();
+            $('.tooltipped').tooltip();
+        });
+      //$(window).on('scroll',function () {
+      //    if ($(window).scrollTop()) {
+      //        $('nav').removeClass('transparent');
+      //    } else{
+      //        $('nav').addClass('transparent');
+      //    }
+      //});
+    </script>
+</body>
+
+</html>

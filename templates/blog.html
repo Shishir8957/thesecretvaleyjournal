@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage</title>
+    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        nav {
+            box-shadow: none;
+            position: sticky;
+            top: 0;
+            transition: 1s ease;
+            min-width: 100%;
+        }
+        .bi{
+            font-size: 2rem;
+        }
+
+        .nav-wrapper {
+            background-color: rgb(0, 0, 0);
+        }
+
+        nav ul a:hover {
+            background-color: transparent;
+            color: #c700ff;
+            font-size: bold;
+        }
+        .auther_img{
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+
+        header {
+            background: url("/media/{{content.display_img}}");
+            background-size: cover;
+            background-position: center;
+            min-height: 200px;
+        }
+        .sidenav-overlay{
+            opacity: 0;
+            position: unset;
+        }
+        .fr-fil.fr-dib,.fr-fic.fr-dii{
+            width: 100%;
+            height: auto;
+        }
+        #newsCard{
+            position: unset;
+            background-color: #eaeaea;
+            padding: 0.1rem;
+            margin: 0rem 1rem;
+            border: 0px;
+            border-radius: 2px;
+            box-shadow: 0px 0px black;
+            width: 18rem;
+        }
+        #newsCard:hover{
+            box-shadow: 1px 3px 10px #bdb5b5;
+        }    
+        
+        .card {
+            position: unset;
+            background-color: #0000004a;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 4px;
+        }
+        #cardTitle{
+            margin: 0.5rem 0rem 0.75rem 0rem;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+        }
+        .truncate2{
+            overflow: hidden;
+        
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+        }
+        
+
+        @media screen and (max-width: 700px) {
+            nav .brand-logo {
+                font-size: 1.5rem;
+            }
+            .sidenav-overlay{
+                opacity: 0;
+                position: unset;
+            }
+            .fr-fil.fr-dib,.fr-fic.fr-dii{
+                width: 100%;
+                height: auto;
+            }
+            iframe {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- nav  -->
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <a type="submit" href="register" class="waves-effect waves-dark btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            </ul>
+            <!-- for small screen menu -->
+            <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <div class="container">
+                    <a type="button" href="register" class="waves-effect waves-light btn black white-text">
+                        <b>Sign In</b>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <!-- header -->
+    <header>
+        <div class="container center" style="padding: 4rem 0vh;">
+            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">{{content.blog_catagory.name}}</h1></div>
+        </div>
+    </header>
+    {% for tag in contact.tags.all %}
+        <div>
+            <h1>{{tag.tag_name}}</h1>
+        </div>
+    {% endfor%}
+    <!-- auther body --> 
+    <div class="container">
+        <div class="container center" style="padding: 1rem 0vh;"><h2 style="margin:0px; font-size: 2.8rem;">{{content.title}}</h2></div>
+            <hr>
+            <div class="d-flex bd-highlight mb-3">
+                <div href="" class="p-2 bd-highlight">
+                    <img  src="/media/{{content.author.img}}" alt="" class="circle responsive_img auther_img">
+                </div>
+                <div class="p-2 bd-highlight" style="line-height: initial;">
+                    <a href="/blog/auther/{{content.author.name}}" style="color:black;"> <b>{{content.author.name}}</b></a><br>
+                    <a>{{content.position}}</a><br>
+                    <a>{{content.date}}</a><br>
+                </div>
+                <div class="ms-auto p-2 bd-highlight" style="margin-top: 9px;">
+                    <i class="bi bi-instagram"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-facebook"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-github"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-youtube"></i>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <!-- body -->
+    <div class="container">
+        <div class="container center" style="width: 90%;">
+            <img src="/media/{{content.display_img}}" alt="" style="width: 100%;">
+            <br>
+            <a><i>fig:{{content.display_img_caption}}</i></a>
+            <br><br>
+        </div>
+        <div class="wrapper">
+            {{content.content|safe}}
+        </div> 
+    </div>
+
+    <!-- recomendation card -->
+    <div class="container">
+        <div class="container center" style="width: 100%;">
+            <h1 style="border-bottom:2.5px solid #b5b5b5;padding-bottom: 25px; font-size: 3.5rem;">Related Post</h1>
+        </div>
+        <div class="wrapper" style="overflow-x: scroll;overflow-y: hidden;">
+            <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px; display:flex;">
+                {% for blog in content.related_blog.all %}
+                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                        <div class="card" id="newsCard">
+                            <div>
+                                <img src="../media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    <!-- footer -->
+    <footer class="page-footer black darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5>The secret valley journal</h5>
+                    <p>The things we do is not normal here</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Usefull Links</h5>
+                    <a href="/blog" style="color:white;">blog</a><br>
+                    <a href="/contact" style="color:white;">Contact</a><br>
+                    <a href="/service" style="color:white;">Services</a><br>  
+                    <a href="" style="color:white;">hot news</a><br>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <a>Kathmandu, Nepal</a>
+                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>+977 987654321</a>
+                </div>
+            </div>
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <div class="d-flex justify-content-evenly" >
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-github"></i>
+                <i class="bi bi-youtube"></i>
+            </div>
+            <div class="container">
+                <div style="height: 1rem;"></div>
+            </div>
+        </div>
+
+        <div class="footer-copyright black darken-4">
+            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+        </div>
+    </footer>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav();
+            $('.tooltipped').tooltip();
+        });
+      //$(window).on('scroll',function () {
+      //    if ($(window).scrollTop()) {
+      //        $('nav').removeClass('transparent');
+      //    } else{
+      //        $('nav').addClass('transparent');
+      //    }
+      //});
+    </script>
+</body>
+
+</html>

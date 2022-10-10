@@ -1,0 +1,460 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage</title>
+    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <!-- bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<style>
+    * {
+        font-family: sans-serif;
+    }
+    
+    nav {
+        box-shadow: none;
+        position: sticky;
+        top: 0;
+        transition: 1s ease;
+        min-width: 100%;
+    }
+    
+    .nav-wrapper {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    nav ul a:hover {
+        background-color: transparent;
+        color: #c700ff;
+        font-size: bold;
+    }
+    
+    header {
+        background: url("{% static "image/background3.jpg" %}");
+        background-size: cover;
+        background-position: center;
+        min-height: 650px;
+    }
+    
+    hr{
+        opacity: 1;
+    }
+    .container {
+        width: 100%;
+    }
+    
+    .button {
+        border-radius: 2px;
+    }
+    
+    .section {
+        padding-top: 4vw;
+        padding-bottom: 4vw;
+    }
+
+    .bi{
+        font-size: 2rem;
+    }
+    
+    h3,
+    h2 {
+        color: white;
+    }
+    #newsCard{
+        position: unset;
+        background-color: #eaeaea;
+        padding: 0.1rem;
+        margin: 0rem 1rem;
+        border: 0px;
+        border-radius: 2px;
+        box-shadow: 0px 0px black;
+        width: 18rem;
+    }
+    #newsCard:hover{
+        box-shadow: 1px 3px 10px #bdb5b5;
+    }    
+    
+    .card {
+        position: unset;
+        background-color: #0000004a;
+        padding: 1rem;
+        margin-top: 2rem;
+        border-radius: 4px;
+    }
+    #cardTitle{
+        margin: 0.5rem 0rem 0.75rem 0rem;
+        color: rgb(0, 0, 0);
+        font-weight: bolder;
+    }
+    
+    .text-white {
+        margin: 12rem 0 1.68rem 0;
+        font-size: 3.5rem;
+        text-shadow: 1px 1px #00000094;
+    }
+    
+    .card .card-image img {
+        border-radius: 4px;
+    }
+    
+    .card .card-title {
+        margin: 1rem 1.7rem auto;
+        color: white;
+        font-weight: bolder;
+    }
+    
+    .wrapper{
+        max-height: 60vh;
+        width: auto;
+        color: #000;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    
+    .wrapper::-webkit-scrollbar{
+        width: 0;
+    }
+    
+    .truncate3{
+        overflow: hidden;
+    
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+    }
+    
+    .truncate2{
+        overflow: hidden;
+    
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+    .grey.darken-3 {
+        background-color: #000 !important;
+    }
+    .image-container{
+        background-size: cover;
+        background-position: center;
+    }
+    
+    @media screen and (max-width: 993px) {
+        .text-white {
+            margin: 12rem 0 1.68rem 0;
+            /* font-size: 2.5rem; */
+            text-shadow: 1px 1px #00000094;
+            text-align: center;
+        }
+    
+        .suscribe {
+            text-align: center;
+        }
+    
+        .card .card-title {
+            font-size: 1rem;
+        }
+        .card{
+            margin-top: 5rem;
+        }
+    
+        .row {
+            padding-top: 2rem;
+        }
+        .truncate3{
+            max-width: 22rem;
+            overflow: hidden;
+    
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+        }
+        .sidenav-overlay{
+            opacity: 0;
+            position: unset;
+        }
+    }
+    
+    @media screen and (max-width: 700px) {
+        header {
+            min-height: 750px;
+        }
+    
+        nav .brand-logo {
+            font-size: 1.5rem;
+        }
+    
+        .text-white {
+            margin: 2rem 0 1.68rem 0;
+            /* font-size: 2.5rem; */
+            text-shadow: 1px 1px #00000094;
+            text-align: center;
+        }
+    
+        .suscribe {
+            text-align: center;
+        }
+    
+        .card {
+            margin: 2rem;
+            font-size: 1rem;
+        }
+        .truncate3{
+            max-width: 24rem;
+            overflow: hidden;
+    
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+        }
+        .sidenav-overlay{
+            opacity: 0;
+            position: unset;
+        }
+        h1 {
+            font-size: 3.2rem;
+        }
+    }
+</style>
+
+<body>
+    <!-- nav  -->
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <a type="submit" href="register" class="waves-effect waves-dark btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            </ul>
+            <!-- for small screen menu -->
+            <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <li><a href="/blog">blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <div class="container">
+                    <a type="button" href="register" class="waves-effect waves-light btn black white-text">
+                        <b>Sign In</b>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <!-- header -->
+    <header>
+        <div class="row">
+            <!-- header left part textarea -->
+            <div class="col s12 m7 l6 offset-l1">
+                <div style="position: center" class="container">
+                    <h1 class="text-white">
+                        Knowledge is
+                        <a style="color: #d88eff; text-shadow: 0px 0px black">power</a>.<br />
+                        Information is
+                        <a style="color: #d88eff; text-shadow: 0px 0px black">liberating</a>.
+                    </h1>
+                    <div class="suscribe" style="transition: 1s ease">
+                        <a href="/subscribe/" type="button" class="btn btn-primary black btn-large"><b>Subscribe</b></a>
+                    </div>
+                </div>
+            </div>
+            <!-- header right part card -->
+            <div class="col s12 m7 l3 offset-r1">
+                <div style="position: right" class="container">
+                    <div class="card" id="card" style="position: unset; width:80%;">
+                        <div class="comtainer">
+                            <h3 style="font-size: 2rem; padding: 2px; margin: 0px">
+                                Featured article
+                            </h3>
+                        </div>
+                        {% for blog in blog %}
+                            {% if blog.feature_article == True %}
+                                <div>
+                                    <div class="card-image" style="position: unset">
+                                        <img src="media/{{blog.display_img}}" style="position: unset" />
+                                    </div>
+                                    <span class="card-title truncate">{{blog.title}}</span>
+                                    <div class="card-content">
+                                        <p class="truncate2" style="color: white">{{blog.discription}}</p>
+                                    </div>
+                                    <div class="container">
+                                        <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- latest news -->
+    <div class="container">
+        <div class="container center">
+            <h1 style=";padding-bottom: 6px;">Latest News</h1>
+            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+        </div>
+        <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
+        <div class="wrapper">
+            {% for blog in blog %}
+                {% if blog.blog_catagory.title == 'latest_news' %}
+                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                        <div class="card" id="newsCard">
+                            <div>
+                                <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- sport news -->
+    <div class="container">
+        <div class="container center">
+            <h1 style="padding-bottom: 6px;">Sport News</h1>
+            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+        </div>
+        <a href="/blog" style="color:#390084; display: flex; justify-content: right; align-items:top; margin: 0rem 2rem;">see all</a>
+        <div class="wrapper">
+            {% for blog in blog %}
+                {% if blog.blog_catagory.title == 'sport_news' %}
+                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                        <div class="card" id="newsCard">
+                            <div>
+                                <img src="media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- tech news -->
+    <div class="container">
+        <div class="container center">
+            <h1 style="padding-bottom: 6px;">Tech News</h1>
+            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+        </div>
+        <a href="/blog" style="color:#390084; display: flex; justify-content: right; align-items:top; margin: 0rem 2rem;">see all</a>
+        <div class="wrapper">
+            {% for blog in blog %}
+                {% if blog.blog_catagory.title == 'tech_news' %}
+                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                        <div class="card" id="newsCard">
+                            <div>
+                                <img src="media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div style="height: 6rem;"></div>
+    </div>
+    <!-- footer -->
+    <footer class="page-footer black darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5>The secret valley journal</h5>
+                    <p>The things we do is not normal here</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Usefull Links</h5>
+                    <a href="/blog" style="color:white;">blog</a><br>
+                    <a href="/contact" style="color:white;">Contact</a><br>
+                    <a href="/service" style="color:white;">Services</a><br>  
+                    <a href="" style="color:white;">hot news</a><br>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <a>Kathmandu, Nepal</a>
+                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>+977 987654321</a>
+                </div>
+            </div>
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <div class="d-flex justify-content-evenly" >
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-github"></i>
+                <i class="bi bi-youtube"></i>
+            </div>
+            <div class="container">
+                <div style="height: 1rem;"></div>
+            </div>
+        </div>
+
+        <div class="footer-copyright black darken-4">
+            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+        </div>
+    </footer>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav();
+            $('.tooltipped').tooltip();
+            $('.materialboxed').materialbox();
+        });
+      //$(window).on('scroll',function () {
+      //    if ($(window).scrollTop()) {
+      //        $('nav').removeClass('transparent');
+      //    } else{
+      //        $('nav').addClass('transparent');
+      //    }
+      //});
+    </script>
+</body>
+
+</html>
