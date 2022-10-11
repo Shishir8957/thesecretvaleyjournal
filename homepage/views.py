@@ -1,8 +1,10 @@
 import imp
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from bloggingPage.models import *
+from django.contrib import messages
 from django.core.mail import  send_mail
 from django.http import HttpResponse
+from .models import Contact,subscriptionEmail
 
 
 # Create your views here.
@@ -18,8 +20,14 @@ def contact(request):
 def subscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
-        return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
+        if subscriptionEmail.objects.filter(email=email).exists():
+            messages.info(request,'This email alreday exists')
+            return redirect('subscribe')     
+        else:
+            subscribe=subscriptionEmail(email=email)
+            subscribe.save()
+            send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
+            return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
     else:
         return render(request, 'subscribe.html')
 
@@ -29,7 +37,9 @@ def contactForm(request):
         email = request.POST.get('email')
         contact_number = request.POST.get('contact_number')
         message = request.POST.get('message')
-
+        
+        contact = Contact(name=name,email=email,contact_number=contact_number,message=message)
+        contact.save()
         data={
             'name': name,
             'email': email,

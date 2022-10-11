@@ -10,8 +10,7 @@ def error404(request):
 
 def register(request):
     if request.method == 'POST':
-        first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
+        first_name = request.POST['firstname']
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -27,25 +26,26 @@ def register(request):
             else:    
                 user = User.objects.create_user(username=username,first_name=first_name,email=email,password=password1)
                 user.save();
-                return redirect('blog')
+                return redirect('login')
         else:
             messages.info(request,'password does not match')
-            return redirect('register')   
+            return redirect('/register')   
     else:    
         return render(request,'account.html')
 
 def login(request):        
-    if request.method=='POST':
-        email = request.POST['email']
+    if request.method == 'POST':
+        username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(email=email, password=password)
+        user = auth.authenticate(username=username, password=password)
+        
         if user is not None:
-            auth.login(request,user)
-            return redirect('/')
+            auth.login(request, user)
+            return redirect("/")
         else:
             messages.info(request,'Invalid credentials')
-            return redirect('register')   
+            return redirect('login')   
     else:    
         return render(request,'account.html')
         
@@ -54,4 +54,4 @@ def logout(request):
     return redirect('register')
 
 def search(request):
-    return render(request,'index.html')
+    return render(request,'index.html') 

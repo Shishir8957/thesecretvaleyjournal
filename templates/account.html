@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>homepage</title>
-    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <link rel="shortcut icon" href="./image/icon.png" type="image/x-icon" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -27,10 +27,10 @@
             font-family: sans-serif;
         }
         body{
-            background: url("{% static 'image/background1.jpg' %}");
+            background: url("{% static './image/top25animecharacters-blogroll-1660777571580.jpg' %}");
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            height: auto;
             background-repeat: no-repeat;
         }
         nav {
@@ -52,24 +52,20 @@
         }
 
         .account{
-            background-color: #C4C4C4;
+            background-color: #FFFFFFDE;
             max-height: 45rem;
             width: 30rem;
             margin: 15% auto 0px auto;
             border-radius: 3px;
         }
         .tabs .indicator {
-            height: 48px;
-            background-color: #ffffffa3;
+            
+            background-color: white;
             border-radius: 38px;
         }    
-        .tabs a:active{
-            background-color: #ffffff;
-            border-radius: 38px;
-        }
+
         .tabs{
             background-color: black;
-            border-radius: 38px;
         }
         .tabs .tab a:focus, .tabs .tab a:focus.active {
             background-color: transparent;
@@ -80,13 +76,16 @@
             position: unset;
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 699px) {
             nav .brand-logo {
                 font-size: 1.5rem;
             }
             .sidenav-overlay{
                 opacity: 0;
                 position: unset;
+            }
+            .account{
+                margin: 35% auto 0px auto;
             }
         }
     </style>
@@ -97,30 +96,28 @@
     <nav class="nav-wrapper">
         <div class="container">
             <a href="/" class="brand-logo">The valley Journal</a>
-            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                <i class="bi bi-list"></i>
-            </a>
+            {% comment %} <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="material-icons">menu</i>
+            </a> {% endcomment %}
             <ul class="right hide-on-med-and-down">
-                <li><a href="/blog">blog</a></li>
+                <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <a type="submit" href="register" class="waves-effect waves-dark btn white black-text">
+                <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
                     <b>Sign In</b>
                 </a>
             </ul>
             <!-- for small screen menu -->
-            <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="/blog">blog</a></li>
-                <li><a href="/service">Services</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
+            {% comment %} <ul class="sidenav grey lighten-2" id="mobile-menu">
+                <li><a href="blog.html">blog</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
                 <div class="container">
-                    <a type="button" href="register" class="waves-effect waves-light btn black white-text">
+                    <a type="button" href="account.html" class="waves-effect waves-light btn black white-text">
                         <b>Sign In</b>
                     </a>
                 </div>
-            </ul>
+            </ul> {% endcomment %}
         </div>
     </nav>
 
@@ -128,10 +125,10 @@
     <header>
         <!-- signin card -->
         <div class="container">
-            <div class="row">
+            <div class="row center">
                 <div class="col s12 m12 l12" style="display:flex; justify-content:center;">
                     <div class="account">
-                        <ul class="tabs" style="margin: 30px 20px; border-radius: 30px; width: 90%;">
+                        <ul class="tabs" style="margin: 30px 20px; width: 90%;">
                             <li class="tab col s6">
                                 <a href="#login" class="active white-text text-darken-4">Login</a>
                             </li>
@@ -142,15 +139,15 @@
                         
                         <!-- login -->
                         <div id="login" class="col s12">
-                            <form id="login" class="input-group" action="login" method="post" style="margin: 3rem 2rem;">
+                            <form style="margin: 3rem 2rem;" action="login" method="post">
                                 {% csrf_token %}
                                 {% for message in messages %}
-                                    <p style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
+                                    <p style="color: red; margin: 0px; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
                                 {% endfor %}
                                 <div class="input-field">
                                     <i class="material-icons prefix">account_circle</i>
-                                    <input type="email" id="email" name="email" required>
-                                    <label for="email">Email or Username</label>
+                                    <input type="text" id="username" name="username" required>
+                                    <label for="username">Username</label>
                                 </div>
                                 <div class="input-field">
                                     <i class="material-icons prefix">key</i>
@@ -160,22 +157,22 @@
                                 <div class="input-field">
                                     <p>
                                         <label>
-                                            <input type="checkbox" required>
+                                            <input type="checkbox">
                                             <span>Remember Me</span>
                                         </label>
                                     </p>
                                 </div>
                                 <div class="input-field center">
-                                    <button type="submit" href="#" class="btn btn-primary black">Submit</button>
+                                    <button type="submit" class="btn btn-primary black">Submit</button>
                                 </div>
                             </form>
                         </div>
                         <!-- signup -->
                         <div id="signin" class="col s12">
-                            <form id="register" class="input-group" action="signin" method="post" style="margin: 2rem 2rem;">
+                            <form style="margin: 3rem 2rem;" action="signin" method="post">
                                 {% csrf_token %}
                                 {% for message in messages %}
-                                    <h3 style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</h3>
+                                    <p style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
                                 {% endfor %}
                                 <div class="input-field">
                                     <i class="material-icons prefix">person</i>
@@ -184,7 +181,7 @@
                                 </div>
                                 <div class="input-field">
                                     <i class="material-icons prefix">person_outline</i>
-                                    <input type="text" id="Firstname" name="first_name" required>
+                                    <input type="text" id="Firstname" name="firstname" required>
                                     <label for="Firstname">Name</label>
                                 </div>
                                 <div class="input-field">
@@ -220,11 +217,7 @@
             </div>
         </div>
     </header>
-
     
-    
-
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

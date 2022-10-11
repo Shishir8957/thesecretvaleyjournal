@@ -35,6 +35,10 @@ header {
     border-radius: 2px;
 }
 
+.bi{
+    font-size: 2rem;
+}
+
 .section {
     padding-top: 4vw;
     padding-bottom: 4vw;
@@ -86,9 +90,6 @@ h2 {
     font-weight: bolder;
 }
 
-.sidenav-overlay {
-    opacity: 0;
-}
 
 .wrapper{
     max-height: 55vh;

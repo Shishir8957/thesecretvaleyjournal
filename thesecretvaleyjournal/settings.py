@@ -131,9 +131,6 @@ FLOALA_EDITOR_PLUGINS = ('align','char_counter','code_view','colors','draggable'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-
 # AUTH_USER_MODEL = 'bloggingPage.User'
 
 # # Auth0 Settings
@@ -158,9 +155,15 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
+
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+    
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
