@@ -1,15 +1,19 @@
-import imp
+import imp,random
 from django.shortcuts import render,redirect
 from bloggingPage.models import *
 from django.contrib import messages
 from django.core.mail import  send_mail
 from django.http import HttpResponse
-from .models import Contact,subscriptionEmail
+from .models import Contact,subscriptionEmail,headerImg
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html',{'blog' : blogField.objects.all().order_by('-date')})
+    background = list(headerImg.objects.all())
+    img = random.choice(background)
+    blogchatagory = BlogCatagory.objects.all()
+    print(blogchatagory)
+    return render(request, 'index.html',{'blog' : blogField.objects.all().order_by('-date'),'background':img,'catagory':blogchatagory})
 
 def service(request):
     return render(request, 'service.html')

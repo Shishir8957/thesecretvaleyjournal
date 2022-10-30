@@ -10,12 +10,8 @@
     <title>homepage</title>
     <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
     <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <!-- icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
@@ -49,7 +45,7 @@
     }
     
     header {
-        background: url("{% static "./image/night_photography_4k.jpg" %}");
+        background: url("/media/{{background.img}}");
         background-size: cover;
         background-position: center;
         min-height: 650px;
@@ -157,7 +153,12 @@
         background-size: cover;
         background-position: center;
     }
-    
+    #dropdown1 {
+        height: 36px;
+        overflow: hidden;
+        padding: 0.4rem;
+        border-radius: 2px;
+    }
     @media screen and (max-width: 993px) {
         .text-white {
             margin: 12rem 0 1.68rem 0;
@@ -249,11 +250,19 @@
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/admin">Admin</a></li>
+                
                 {% if user.is_authenticated %}
-                    Hello,{{user}}
+                    <!--
                     <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
                         <b>Logout</b>
-                    </a>
+                    </a>-->
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content' >
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                    </ul>
                 {% else %}
                     <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
                         <b>Sign In</b>
@@ -344,21 +353,25 @@
         </div>
         <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
         <div class="wrapper">
-            {% for blog in blog %}
-                {% if blog.blog_catagory.title == 'latest_news' %}
-                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                        <div class="card" id="newsCard">
-                            <div>
-                                <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
-                            </div>
-                            <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+            {% for cat in catagory %}
+                {% for blog in blog %}
+                {{cat.title}}
+                    {% if blog.blog_catagory.title == "{{cat.title}}" %} 
+                        {{cat.title}}
+                        <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                            <div class="card" id="newsCard">
+                                <div>
+                                    <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                <p class="card-text truncate2">{{blog.discription}} </p>
+                                <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </div>
     </div>
@@ -465,6 +478,7 @@
             $(".sidenav").sidenav();
             $('.tooltipped').tooltip();
             $('.materialboxed').materialbox();
+            $('.dropdown-trigger').dropdown();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {

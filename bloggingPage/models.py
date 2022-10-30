@@ -43,7 +43,7 @@ class blogField(models.Model):
     display_img_caption = models.CharField(max_length=200,null=True)
     views = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tags',blank=True,related_name='posts')
-    related_blog = models.ManyToManyField('self',blank=True,related_name='related_to')
+    related_blog = models.ManyToManyField('self',blank=True)
     discription = models.TextField(blank=True)
     content = FroalaField()
     feature_article = models.BooleanField(default=False)
