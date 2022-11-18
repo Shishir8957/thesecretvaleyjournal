@@ -47,6 +47,7 @@ class blogField(models.Model):
     discription = models.TextField(blank=True)
     content = FroalaField()
     feature_article = models.BooleanField(default=False)
+    hidepost = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>homepage</title>
+    <title>{{content.title}}</title>
     <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -99,7 +99,12 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 4;
         }
-        
+        #dropdown1 {
+            height: 36px;
+            overflow: hidden;
+            padding: 0.4rem;
+            border-radius: 2px;
+        }
 
         @media screen and (max-width: 700px) {
             nav .brand-logo {
@@ -116,6 +121,12 @@
             iframe {
                 width: 100%;
             }
+            .bi{
+                font-size: 1.5rem;
+            }
+            .title{
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -124,7 +135,7 @@
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="/" class="brand-logo">Republic KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
@@ -133,9 +144,24 @@
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/admin">Admin</a></li>
-                <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
-                    <b>Sign In</b>
-                </a>
+                
+                {% if user.is_authenticated %}
+                    <!--
+                    <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                        <b>Logout</b>
+                    </a>-->
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content' >
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                        <b>Sign In</b>
+                    </a>
+                {% endif %}
             </ul>
             <!-- for small screen menu -->
             <ul class="sidenav grey lighten-2" id="mobile-menu">
@@ -144,9 +170,16 @@
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/admin">Admin</a></li>
                 <div class="container">
-                    <a type="button" href="/register" class="waves-effect waves-light btn black white-text">
-                        <b>Sign In</b>
-                    </a>
+                    {% if user.is_authenticated %}
+                        <li><a href="">Hello,{{user}}</a></li><br/>
+                        <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                            <b>Logout</b>
+                        </a>
+                    {% else %}
+                        <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    {% endif %}
                 </div>
             </ul>
         </div>
@@ -157,14 +190,14 @@
             <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">{{content.blog_catagory.name}}</h1></div>
         </div>
     </header>
-    {% for tag in contact.tags.all %}
+    {% for tag in posts.tags.all %}
         <div>
             <h1>{{tag.tag_name}}</h1>
         </div>
     {% endfor%}
     <!-- auther body --> 
     <div class="container">
-        <div class="container center" style="padding: 1rem 0vh;"><h2 style="margin:0px; font-size: 2.8rem;">{{content.title}}</h2></div>
+        <div class="container center" style="padding: 1rem 0vh;"><h3 class="title" style="margin:0px; ">{{content.title}}</h3></div>
             <hr>
             <div class="d-flex bd-highlight mb-3">
                 <div href="" class="p-2 bd-highlight">
@@ -175,14 +208,46 @@
                     <a>{{content.position}}</a><br>
                     <a>{{content.date}}</a><br>
                 </div>
-                <div class="ms-auto p-2 bd-highlight" style="margin-top: 9px;">
-                    <i class="bi bi-instagram"></i>&nbsp;&nbsp;&nbsp;
+                <div class="ms-auto p-2 bd-highlight">
+                    {% autoescape on %}
+                        {% with "http://google.com" as host %}
+                            {% with "Share in" as share_txt %}
+
+                                {% with "twitter" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://twitter.com/share?url={{ host }}{{ page_url }}&amp;text={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                {% endwith%}
+
+                                {% with "facebook" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.facebook.com/share.php?u={{ host }}{{ page_url }}&amp;t={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                {% endwith %}
+
+                                {% with "linkedin" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ host }}{{ page_url }}&amp;title={{ title }}&amp;ro=false&amp;summary=&amp;source=" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                {% endwith %}
+
+                                {% with "instagram" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.instagram.com/share.php?u={{ title }}&amp;url={{ host }}{{ page_url }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                {% endwith %}
+
+                            {% endwith %}
+                        {% endwith %}
+                    {% endautoescape %}
+                    {% comment %} <i class="bi bi-instagram"></i>&nbsp;&nbsp;&nbsp;
                     <i class="bi bi-facebook"></i>&nbsp;&nbsp;&nbsp;
                     <i class="bi bi-github"></i>&nbsp;&nbsp;&nbsp;
-                    <i class="bi bi-youtube"></i>
+                    <i class="bi bi-youtube"></i> {% endcomment %}
                 </div>
             </div>
         </div>    
+        
     </div>
     <!-- body -->
     <div class="container">
@@ -239,17 +304,17 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Contact Us</h5>
-                    <a>Kathmandu, Nepal</a>
-                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>Kathmandu, Nepal</a><br>
+                    <a>contact@thesecretvaleyjournal.com</a><br>
                     <a>+977 987654321</a>
                 </div>
             </div>
             <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
             <div class="d-flex justify-content-evenly" >
-                <i class="bi bi-instagram"></i>
-                <i class="bi bi-facebook"></i>
-                <i class="bi bi-github"></i>
-                <i class="bi bi-youtube"></i>
+                <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
+                <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>
+                <a href="https://github.com/" style="color:white;"><i class="bi bi-github"></i></a>
+                <a href="https://youtube.com/" style="color:white;"><i class="bi bi-youtube"></i></a>
             </div>
             <div class="container">
                 <div style="height: 1rem;"></div>
@@ -268,6 +333,7 @@
         $(document).ready(function () {
             $(".sidenav").sidenav();
             $('.tooltipped').tooltip();
+            $('.dropdown-trigger').dropdown();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {

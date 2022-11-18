@@ -241,7 +241,7 @@
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="/" class="brand-logo">Republic KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
@@ -257,14 +257,14 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
 
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
                         <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
                     </ul>
                 {% else %}
-                    <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
                 {% endif %}
@@ -278,11 +278,11 @@
                 <div class="container">
                     {% if user.is_authenticated %}
                         <li><a href="">Hello,{{user}}</a></li><br/>
-                        <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                        <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
                             <b>Logout</b>
                         </a>
                     {% else %}
-                        <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                             <b>Sign In</b>
                         </a>
                     {% endif %}
@@ -347,85 +347,33 @@
 
     <!-- latest news -->
     <div class="container">
-        <div class="container center">
-            <h1 style=";padding-bottom: 6px;">Latest News</h1>
-            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
-        </div>
-        <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
-        <div class="wrapper">
-            {% for cat in catagory %}
+        {% for cat in catagory %}
+            <div class="container center">
+                <h1 style=";padding-bottom: 6px;">{{cat.name}}</h1>
+                <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+            </div>
+            <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
+            <div class="wrapper" style="min-height: fit-content;">
                 {% for blog in blog %}
-                {{cat.title}}
-                    {% if blog.blog_catagory.title == "{{cat.title}}" %} 
-                        {{cat.title}}
-                        <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                            <div class="card" id="newsCard">
-                                <div>
-                                    <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                                <p class="card-text truncate2">{{blog.discription}} </p>
-                                <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                    {% if blog.hidepost == False %}
+                        {% if blog.blog_catagory.title == cat.title %}
+                            <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                                <div class="card" id="newsCard">
+                                    <div>
+                                        <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
+                                    </div>
+                                    <div class="card-body">
+                                    <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                    <p class="card-text truncate2">{{blog.discription}} </p>
+                                    <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
-            {% endfor %}
-        </div>
-    </div>
-    <!-- sport news -->
-    <div class="container">
-        <div class="container center">
-            <h1 style="padding-bottom: 6px;">Sport News</h1>
-            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
-        </div>
-        <a href="/blog" style="color:#390084; display: flex; justify-content: right; align-items:top; margin: 0rem 2rem;">see all</a>
-        <div class="wrapper">
-            {% for blog in blog %}
-                {% if blog.blog_catagory.title == 'sport_news' %}
-                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                        <div class="card" id="newsCard">
-                            <div>
-                                <img src="media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
-                            </div>
-                            <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-    <!-- tech news -->
-    <div class="container">
-        <div class="container center">
-            <h1 style="padding-bottom: 6px;">Tech News</h1>
-            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
-        </div>
-        <a href="/blog" style="color:#390084; display: flex; justify-content: right; align-items:top; margin: 0rem 2rem;">see all</a>
-        <div class="wrapper">
-            {% for blog in blog %}
-                {% if blog.blog_catagory.title == 'tech_news' %}
-                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                        <div class="card" id="newsCard">
-                            <div>
-                                <img src="media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
-                            </div>
-                            <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="container">
@@ -448,17 +396,17 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Contact Us</h5>
-                    <a>Kathmandu, Nepal</a>
-                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>Kathmandu, Nepal</a><br>
+                    <a>contact@thesecretvaleyjournal.com</a><br>
                     <a>+977 987654321</a>
                 </div>
             </div>
             <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
             <div class="d-flex justify-content-evenly" >
-                <i class="bi bi-instagram"></i>
-                <i class="bi bi-facebook"></i>
-                <i class="bi bi-github"></i>
-                <i class="bi bi-youtube"></i>
+                <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
+                <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>
+                <a href="https://github.com/" style="color:white;"><i class="bi bi-github"></i></a>
+                <a href="https://youtube.com/" style="color:white;"><i class="bi bi-youtube"></i></a>
             </div>
             <div class="container">
                 <div style="height: 1rem;"></div>

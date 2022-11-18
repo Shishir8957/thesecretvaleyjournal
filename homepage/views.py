@@ -12,8 +12,8 @@ def index(request):
     background = list(headerImg.objects.all())
     img = random.choice(background)
     blogchatagory = BlogCatagory.objects.all()
-    print(blogchatagory)
-    return render(request, 'index.html',{'blog' : blogField.objects.all().order_by('-date'),'background':img,'catagory':blogchatagory})
+    blogfield = blogField.objects.all().order_by('-date')
+    return render(request, 'index.html',{'blog' : blogfield,'background':img,'catagory':blogchatagory})
 
 def service(request):
     return render(request, 'service.html')
@@ -31,7 +31,9 @@ def subscribe(request):
             subscribe=subscriptionEmail(email=email)
             subscribe.save()
             send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
-            return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
+            messages.info(request,'Your email is submitted')
+            return redirect('subscribe')  
+            # return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
     else:
         return render(request, 'subscribe.html')
 
@@ -57,6 +59,6 @@ def contactForm(request):
         '''.format(data['message'],data['email'])
 
         send_mail('test email', message, 'royell4912@gmail.com', [email])
-        return HttpResponse('<div style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;" type="submit"> Return to home </button></div>')
+        return HttpResponse('<div style="text-align: center; margin: 17rem;">your form submitted <br> <button href="./" style="margin:1rem;" type="submit"> Return to home </button></div>')
     else:
         return render(request, 'contact.html')

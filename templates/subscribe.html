@@ -40,6 +40,12 @@
             background-size: cover;
             background-position: center;
         }
+        #dropdown1 {
+            height: 36px;
+            overflow: hidden;
+            padding: 0.4rem;
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -47,7 +53,7 @@
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">The valley Journal</a>
+            <a href="/" class="brand-logo">Republic KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
@@ -56,20 +62,42 @@
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/admin">Admin</a></li>
-                <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
-                    <b>Sign In</b>
-                </a>
+                
+                {% if user.is_authenticated %}
+                    <!--
+                    <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                        <b>Logout</b>
+                    </a>-->
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content' >
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                        <b>Sign In</b>
+                    </a>
+                {% endif %}
             </ul>
             <!-- for small screen menu -->
             <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="/blog">blog</a></li>
+                <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li><a href="/admin">Admin</a></li>
                 <div class="container">
-                    <a type="button" href="/register" class="waves-effect waves-light btn black white-text">
-                        <b>Sign In</b>
-                    </a>
+                    {% if user.is_authenticated %}
+                        <li><a href="">Hello,{{user}}</a></li><br/>
+                        <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                            <b>Logout</b>
+                        </a>
+                    {% else %}
+                        <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    {% endif %}
                 </div>
             </ul>
         </div>
@@ -117,17 +145,17 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Contact Us</h5>
-                    <a>Kathmandu, Nepal</a>
-                    <a>contact@thesecretvaleyjournal.com</a>
+                    <a>Kathmandu, Nepal</a><br>
+                    <a>contact@thesecretvaleyjournal.com</a><br>
                     <a>+977 987654321</a>
                 </div>
             </div>
             <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
             <div class="d-flex justify-content-evenly" >
-                <i class="bi bi-instagram"></i>
-                <i class="bi bi-facebook"></i>
-                <i class="bi bi-github"></i>
-                <i class="bi bi-youtube"></i>
+                <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
+                <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>
+                <a href="https://github.com/" style="color:white;"><i class="bi bi-github"></i></a>
+                <a href="https://youtube.com/" style="color:white;"><i class="bi bi-youtube"></i></a>
             </div>
             <div class="container">
                 <div style="height: 1rem;"></div>
@@ -147,6 +175,7 @@
             $(".sidenav").sidenav();
             $('.tooltipped').tooltip();
             $('.materialboxed').materialbox();
+            $('.dropdown-trigger').dropdown();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {
