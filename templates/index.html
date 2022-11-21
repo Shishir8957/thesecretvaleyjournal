@@ -189,10 +189,6 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 5;
         }
-        .sidenav-overlay{
-            opacity: 0;
-            position: unset;
-        }
     }
     
     @media screen and (max-width: 700px) {
@@ -227,10 +223,6 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 5;
         }
-        .sidenav-overlay{
-            opacity: 0;
-            position: unset;
-        }
         h1 {
             font-size: 3.2rem;
         }
@@ -238,6 +230,7 @@
 </style>
 
 <body>
+    
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
@@ -269,27 +262,29 @@
                     </a>
                 {% endif %}
             </ul>
-            <!-- for small screen menu -->
-            <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/service">Services</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <div class="container">
-                    {% if user.is_authenticated %}
-                        <li><a href="">Hello,{{user}}</a></li><br/>
-                        <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                            <b>Logout</b>
-                        </a>
-                    {% else %}
-                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                            <b>Sign In</b>
-                        </a>
-                    {% endif %}
-                </div>
-            </ul>
+            
         </div>
     </nav>
+    <!-- for small screen menu -->
+    <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/service">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <li><a href="">Hello,{{user}}</a></li><br/>
+                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
+                    <b>Logout</b>
+                </a>
+            {% else %}
+                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            {% endif %}
+        </div>
+    </ul>
+          
     <!-- header -->
     <header>
         <div class="row">
@@ -308,11 +303,11 @@
                 </div>
             </div>
             <!-- header right part card -->
-            <div class="col s12 m7 l3 offset-r1">
-                <div style="position: right" class="container">
-                    <div class="card" id="card" style="position: unset; width:80%;">
+            <div class="col s12 m7 l4">
+                <div style="width:90%;" class="container">
+                    <div class="card" style="position: unset;">
                         <div class="comtainer">
-                            <h3 style="font-size: 2rem; padding: 2px; margin: 0px">
+                            <h3 style="font-size: 2rem; padding: 0px 0px 0.5rem 0px; margin: 0px">
                                 Featured article
                             </h3>
                         </div>
@@ -359,8 +354,8 @@
                         {% if blog.blog_catagory.title == cat.title %}
                             <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
                                 <div class="card" id="newsCard">
-                                    <div>
-                                        <img src="media/{{blog.display_img}}" class="card-img-top" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%; background-position: center;">
+                                    <div style="position:unset;" class="card-image" >
+                                        <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}">
                                     </div>
                                     <div class="card-body">
                                     <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
@@ -375,7 +370,7 @@
             </div>
         {% endfor %}
     </div>
-    <div class="center"><iframe frameborder=1 height=100% width=70% src="https://weakstreams.com/streams/10230541" allowfullscreen scrolling=no allowtransparency></iframe></div>
+    {% comment %} <div class="center"><iframe frameborder=1 height=100 width=70% src="https://weakstreams.com/streams/10230541" allowfullscreen scrolling=no allowtransparency></iframe></div> {% endcomment %}
     <div class="container">
         <div style="height: 6rem;"></div>
     </div>

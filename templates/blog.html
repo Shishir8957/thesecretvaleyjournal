@@ -58,10 +58,7 @@
             background-position: center;
             min-height: 200px;
         }
-        .sidenav-overlay{
-            opacity: 0;
-            position: unset;
-        }
+
         .fr-fil.fr-dib,.fr-fic.fr-dii{
             width: 100%;
             height: auto;
@@ -110,19 +107,12 @@
             nav .brand-logo {
                 font-size: 1.5rem;
             }
-            .sidenav-overlay{
-                opacity: 0;
-                position: unset;
-            }
             .fr-fil.fr-dib,.fr-fic.fr-dii{
                 width: 100%;
                 height: auto;
             }
             iframe {
                 width: 100%;
-            }
-            .bi{
-                font-size: 1.5rem;
             }
             .title{
                 font-size: 2rem;
@@ -151,39 +141,40 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
 
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
                         <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
                     </ul>
                 {% else %}
-                    <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
                 {% endif %}
             </ul>
-            <!-- for small screen menu -->
-            <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/service">Services</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <div class="container">
-                    {% if user.is_authenticated %}
-                        <li><a href="">Hello,{{user}}</a></li><br/>
-                        <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
-                            <b>Logout</b>
-                        </a>
-                    {% else %}
-                        <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
-                            <b>Sign In</b>
-                        </a>
-                    {% endif %}
-                </div>
-            </ul>
+            
         </div>
     </nav>
+    <!-- for small screen menu -->
+    <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/service">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <li><a href="">Hello,{{user}}</a></li><br/>
+                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
+                    <b>Logout</b>
+                </a>
+            {% else %}
+                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            {% endif %}
+        </div>
+    </ul>
     <!-- header -->
     <header>
         <div class="container center" style="padding: 4rem 0vh;">
@@ -196,10 +187,62 @@
         </div>
     {% endfor%}
     <!-- auther body --> 
-    <div class="container">
+    <div class="container" style="width:85%;">
         <div class="container center" style="padding: 1rem 0vh;"><h3 class="title" style="margin:0px; ">{{content.title}}</h3></div>
             <hr>
-            <div class="d-flex bd-highlight mb-3">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <div class="d-flex bd-highlight mb-3">
+                        <div href="" class="p-2 bd-highlight">
+                            <img  src="/media/{{content.author.img}}" alt="" class="circle responsive_img auther_img">
+                        </div> 
+                        <div class="p-2 bd-highlight" style="line-height: initial;">
+                            <a href="/blog/auther/{{content.author.name}}" style="color:black;"> <b>{{content.author.name}}</b></a><br>
+                            <a>{{content.position}}</a><br>
+                            <a>{{content.date}}</a><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col-sm-auto">
+                    {% autoescape on %}
+                        {% with "http://google.com" as host %}
+                            {% with "Share in" as share_txt %}
+
+                                {% with "twitter" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://twitter.com/share?url={{ host }}{{ page_url }}&amp;text={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                {% endwith%}
+
+                                {% with "facebook" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.facebook.com/share.php?u={{ host }}{{ page_url }}&amp;t={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                {% endwith %}
+
+                                {% with "linkedin" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ host }}{{ page_url }}&amp;title={{ title }}&amp;ro=false&amp;summary=&amp;source=" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                {% endwith %}
+
+                                {% with "instagram" as service %}
+                                    <a style="margin: 0.5rem; color: black;" href="http://www.instagram.com/share.php?u={{ title }}&amp;url={{ host }}{{ page_url }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                {% endwith %}
+
+                            {% endwith %}
+                        {% endwith %}
+                    {% endautoescape %}
+                    {% comment %} <i class="bi bi-instagram"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-facebook"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-github"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="bi bi-youtube"></i> {% endcomment %}
+                </div>
+              </div>
+            <!-- <div class="d-flex bd-highlight mb-3">
                 <div href="" class="p-2 bd-highlight">
                     <img  src="/media/{{content.author.img}}" alt="" class="circle responsive_img auther_img">
                 </div> 
@@ -245,9 +288,8 @@
                     <i class="bi bi-github"></i>&nbsp;&nbsp;&nbsp;
                     <i class="bi bi-youtube"></i> {% endcomment %}
                 </div>
-            </div>
+            </div> -->
         </div>    
-        
     </div>
     <!-- body -->
     <div class="container">
@@ -272,8 +314,8 @@
                 {% for blog in content.related_blog.all %}
                     <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
                         <div class="card" id="newsCard">
-                            <div>
-                                <img src="../media/{{blog.display_img}}" class="card-img-center" alt="..." style="border-radius: 2px; height: 11.5rem; width: 100%;">
+                            <div style="position:unset;" class="card-image" >
+                                <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="../media/{{blog.display_img}}">
                             </div>
                             <div class="card-body">
                             <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>

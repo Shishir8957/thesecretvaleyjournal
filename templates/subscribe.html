@@ -69,39 +69,40 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-dark btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
 
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
                         <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
                     </ul>
                 {% else %}
-                    <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
                 {% endif %}
             </ul>
-            <!-- for small screen menu -->
-            <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/service">Services</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <div class="container">
-                    {% if user.is_authenticated %}
-                        <li><a href="">Hello,{{user}}</a></li><br/>
-                        <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
-                            <b>Logout</b>
-                        </a>
-                    {% else %}
-                        <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
-                            <b>Sign In</b>
-                        </a>
-                    {% endif %}
-                </div>
-            </ul>
+            
         </div>
     </nav>
+    <!-- for small screen menu -->
+    <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/service">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <li><a href="">Hello,{{user}}</a></li><br/>
+                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
+                    <b>Logout</b>
+                </a>
+            {% else %}
+                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            {% endif %}
+        </div>
+    </ul>
     
 
     <section>
@@ -150,7 +151,7 @@
                     <a>+977 987654321</a>
                 </div>
             </div>
-            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto; color:white; ">
             <div class="d-flex justify-content-evenly" >
                 <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
                 <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>

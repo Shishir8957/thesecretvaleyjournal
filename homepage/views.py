@@ -58,7 +58,7 @@ def contactForm(request):
             Form: {}
         '''.format(data['message'],data['email'])
 
-        send_mail('test email', message, 'royell4912@gmail.com', [email])
+        send_mail('test email', message, 'royell4912@gmail.com', ['kbro1415@gmail.com'])
         return HttpResponse('<div style="text-align: center; margin: 17rem;">your form submitted <br> <button href="./" style="margin:1rem;" type="submit"> Return to home </button></div>')
     else:
         return render(request, 'contact.html')

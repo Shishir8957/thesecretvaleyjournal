@@ -71,18 +71,10 @@
             background-color: transparent;
             outline: none;
         }
-        .sidenav-overlay{
-            opacity: 0;
-            position: unset;
-        }
 
         @media screen and (max-width: 699px) {
             nav .brand-logo {
                 font-size: 1.5rem;
-            }
-            .sidenav-overlay{
-                opacity: 0;
-                position: unset;
             }
             .account{
                 margin: 35% auto 0px auto;
@@ -95,31 +87,56 @@
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">The valley Journal</a>
-            {% comment %} <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                <i class="material-icons">menu</i>
-            </a> {% endcomment %}
+            <a href="/" class="brand-logo">Republic KTM</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <a type="submit" href="/register" class="waves-effect waves-dark btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            </ul>
-            <!-- for small screen menu -->
-            {% comment %} <ul class="sidenav grey lighten-2" id="mobile-menu">
-                <li><a href="blog.html">blog</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                <div class="container">
-                    <a type="button" href="account.html" class="waves-effect waves-light btn black white-text">
+                <li><a href="/admin">Admin</a></li>
+                
+                {% if user.is_authenticated %}
+                    <!--
+                    <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                        <b>Logout</b>
+                    </a>-->
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content' >
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
-                </div>
-            </ul> {% endcomment %}
+                {% endif %}
+            </ul>
+            
         </div>
     </nav>
+    <!-- for small screen menu -->
+    <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/service">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <li><a href="">Hello,{{user}}</a></li><br/>
+                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
+                    <b>Logout</b>
+                </a>
+            {% else %}
+                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            {% endif %}
+        </div>
+    </ul>
 
     
     <header>
