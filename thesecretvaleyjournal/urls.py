@@ -20,7 +20,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('republic_ktm_4912/', admin.site.urls),
     path('',include('homepage.urls')),
     path('',include('social_django.urls')),
     path('register/',include('register.urls')),
