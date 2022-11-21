@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     'homepage',
     'social_django',
     'django.contrib.humanize',
+    'dbbackup',
 ]
+
+# DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR/'/backup/'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,7 +87,7 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'journal',
+        'NAME': 'republicktm',
         'USER': 'postgres',
         'PASSWORD': '1532',
         'HOST': 'localhost',
