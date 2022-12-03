@@ -127,6 +127,9 @@
             .contactleftcard{
                 margin: 3rem 0 0 0;
             }
+            header{
+                min-height: 11rem;
+            }
         }
     </style>
 </head>
@@ -230,7 +233,7 @@
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" maxlength="500" name="message" style="max-height: 6rem;"></textarea>
                     </div>
                     <div class="center"> 
-                        <button type="submit" class="waves-effect waves-dark btn white black-text" style="width:10rem;position: unset;margin-top: 2rem;">
+                        <button type="submit" onclick="M.toast({text: 'Summited successfully , classes: 'rounded'})" class="waves-effect waves-dark btn white black-text" style="width:10rem;position: unset;margin-top: 2rem;">
                             <b>Submit</b>
                         </button>
                     </div>

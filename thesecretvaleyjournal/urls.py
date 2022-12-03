@@ -26,11 +26,11 @@ urlpatterns = [
     path('register/',include('register.urls')),
     path('blog/',include('bloggingPage.urls')),
     path('subscribe/',include('subscribe.urls')),
-    path('falora_editor/',include('froala_editor.urls')),
+    # path('falora_editor/',include('froala_editor.urls')),
 ]
 
 if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 urlpatterns += staticfiles_urlpatterns()

@@ -102,6 +102,9 @@
             padding: 0.4rem;
             border-radius: 2px;
         }
+        .blog_img{
+            width: 90%;
+        }
 
         @media screen and (max-width: 700px) {
             nav .brand-logo {
@@ -116,6 +119,25 @@
             }
             .title{
                 font-size: 2rem;
+            }
+            header{
+                min-height: 11rem;
+            }
+            .blog_img{
+                width: 100%;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            h2 {
+                font-size: 2.56rem;
+            }
+            p{
+                overflow: hidden;
             }
         }
     </style>
@@ -133,7 +155,9 @@
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
+                {% if user.is_superuser %}
+                    <a href="/republic_ktm_4912/" class="waves-effect waves-purple btn white black-text"><i class="bi bi-bar-chart-fill left"></i>Admin</a>
+                {% endif %}
                 
                 {% if user.is_authenticated %}
                     <!--
@@ -178,7 +202,7 @@
     <!-- header -->
     <header>
         <div class="container center" style="padding: 4rem 0vh;">
-            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">{{content.blog_catagory.name}}</h1></div>
+            <div><h2 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">{{content.blog_catagory.title}}</h2></div>
         </div>
     </header>
     {% for tag in posts.tags.all %}
@@ -187,7 +211,7 @@
         </div>
     {% endfor%}
     <!-- auther body --> 
-    <div class="container" style="width:85%;">
+    <div class="container" style="width:80%;">
         <div class="container center" style="padding: 1rem 0vh;"><h3 class="title" style="margin:0px; ">{{content.title}}</h3></div>
             <hr>
             <div class="row">
@@ -236,10 +260,10 @@
                             {% endwith %}
                         {% endwith %}
                     {% endautoescape %}
-                    {% comment %} <i class="bi bi-instagram"></i>&nbsp;&nbsp;&nbsp;
-                    <i class="bi bi-facebook"></i>&nbsp;&nbsp;&nbsp;
-                    <i class="bi bi-github"></i>&nbsp;&nbsp;&nbsp;
-                    <i class="bi bi-youtube"></i> {% endcomment %}
+                    {% if user.is_superuser %}
+                        <a style="margin-left:2rem; position:unset;" href="/republic_ktm_4912/bloggingPage/blogfield/{{content.id}}/change" class="waves-effect waves-light btn black white-text"><i class="bi bi-pencil-fill left"></i><b>Edit</b></a>
+                    {% endif %}
+                    
                 </div>
               </div>
             <!-- <div class="d-flex bd-highlight mb-3">
@@ -292,14 +316,14 @@
         </div>    
     </div>
     <!-- body -->
-    <div class="container">
-        <div class="container center" style="width: 90%;">
+    <div class="container blogimg" >
+        <div class="container center blog_img" >
             <img src="/media/{{content.display_img}}" alt="" style="width: 100%;">
             <br>
             <a><i>fig:{{content.display_img_caption}}</i></a>
             <br><br>
         </div>
-        <div class="wrapper">
+        <div class="wrapper" style="min-width:100%;">
             {{content.content|safe}}
         </div> 
     </div>

@@ -159,6 +159,9 @@
         padding: 0.4rem;
         border-radius: 2px;
     }
+    .left_header{
+        max-width: 90%;
+    }
     @media screen and (max-width: 993px) {
         .text-white {
             margin: 12rem 0 1.68rem 0;
@@ -166,13 +169,15 @@
             text-shadow: 1px 1px #00000094;
             text-align: center;
         }
-    
+        .left_header{
+            max-width: 100%;
+        }
         .suscribe {
             text-align: center;
         }
     
         .card .card-title {
-            font-size: 1rem;
+            font-size: 1.3rem;
         }
         .card{
             margin-top: 5rem;
@@ -199,7 +204,9 @@
         nav .brand-logo {
             font-size: 1.5rem;
         }
-    
+        .left_header{
+            max-width: 100%;
+        }
         .text-white {
             margin: 2rem 0 1.68rem 0;
             /* font-size: 2.5rem; */
@@ -226,6 +233,9 @@
         h1 {
             font-size: 3.2rem;
         }
+        .container{
+            width: 100%;
+        }
     }
 </style>
 
@@ -234,7 +244,7 @@
     <!-- nav  -->
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">Republic KTM</a>
+            <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
@@ -242,7 +252,9 @@
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
+                {% if user.is_superuser %}
+                    <a href="/republic_ktm_4912/" class="waves-effect waves-purple btn white black-text"><i class="bi bi-bar-chart-fill left"></i><b>Admin</b></a>
+                {% endif %}
                 
                 {% if user.is_authenticated %}
                     <!--
@@ -254,7 +266,7 @@
 
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
                     <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
@@ -270,7 +282,7 @@
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/admin">Admin</a></li>
+        <li><a href="/republic_ktm_4912">Admin</a></li>
         <div class="container">
             {% if user.is_authenticated %}
                 <li><a href="">Hello,{{user}}</a></li><br/>
@@ -304,28 +316,26 @@
             </div>
             <!-- header right part card -->
             <div class="col s12 m7 l4">
-                <div style="width:90%;" class="container">
+                <div class="container left_header">
                     <div class="card" style="position: unset;">
                         <div class="comtainer">
                             <h3 style="font-size: 2rem; padding: 0px 0px 0.5rem 0px; margin: 0px">
                                 Featured article
                             </h3>
                         </div>
-                        {% for blog in blog %}
-                            {% if blog.feature_article == True %}
-                                <div>
-                                    <div class="card-image" style="position: unset">
-                                        <img src="media/{{blog.display_img}}" style="position: unset" />
-                                    </div>
-                                    <span class="card-title truncate">{{blog.title}}</span>
-                                    <div class="card-content">
-                                        <p class="truncate2" style="color: white">{{blog.discription}}</p>
-                                    </div>
-                                    <div class="container">
-                                        <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                                    </div>
+                        {% for blog in feature_article %}
+                            <div>
+                                <div class="card-image" style="position: unset">
+                                    <img src="/media/{{blog.feature_article.display_img}}" style="position: unset" />
                                 </div>
-                            {% endif %}
+                                <span class="card-title truncate">{{blog.feature_article.title}}</span>
+                                <div class="card-content">
+                                    <p class="truncate2" style="color: white">{{blog.feature_article.discription}}</p>
+                                </div>
+                                <div class="container">
+                                    <a href="/blog/{{blog.feature_article.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                </div>
+                            </div>
                         {% endfor %}
 
                     </div>
@@ -334,42 +344,39 @@
         </div>
     </header>
 
-    {% for tag in tags.post.all %}
-        <div>
-            <h1>{{tag.name}}</h1>
-        </div>
-    {% endfor%}
 
     <!-- latest news -->
     <div class="container">
         {% for cat in catagory %}
-            <div class="container center">
-                <h1 style=";padding-bottom: 6px;">{{cat.name}}</h1>
-                <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
-            </div>
-            <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
-            <div class="wrapper" style="min-height: fit-content;">
-                {% for blog in blog %}
-                    {% if blog.hidepost == False %}
-                        {% if blog.blog_catagory.title == cat.title %}
-                            <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                                <div class="card" id="newsCard">
-                                    <div style="position:unset;" class="card-image" >
-                                        <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}">
-                                    </div>
-                                    <div class="card-body">
-                                    <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                                    <p class="card-text truncate2">{{blog.discription}} </p>
-                                    <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+            {% if cat.publish == True %}
+                <div class="container center">
+                    <h1 href="/blog" style=";padding-bottom: 6px;">{{cat.title}}</h1>
+                    <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+                </div>
+                <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
+                <div class="wrapper" style="min-height: fit-content;">
+                    {% for blog in blog %}
+                        {% if blog.publish == True %}
+                            {% if blog.blog_catagory.title == cat.title %}
+                                <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                                    <div class="card" id="newsCard">
+                                        <div style="position:unset;" class="card-image" >
+                                            <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}">
+                                        </div>
+                                        <div class="card-body">
+                                        <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                        <p class="card-text truncate2">{{blog.discription}} </p>
+                                        <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endfor %}
-    </div>
+    </div> 
     {% comment %} <div class="center"><iframe frameborder=1 height=100 width=70% src="https://weakstreams.com/streams/10230541" allowfullscreen scrolling=no allowtransparency></iframe></div> {% endcomment %}
     <div class="container">
         <div style="height: 6rem;"></div>

@@ -21,8 +21,8 @@ class publishingUser(models.Model):
 
 class BlogCatagory(models.Model):
     title = models.CharField(max_length=30)
-    name = models.CharField(max_length=100)
     bg = models.ImageField(upload_to='img' , null=True)
+    publish = models.BooleanField(default=False)
     def __str__(self):
         return self.title
 
@@ -30,6 +30,12 @@ class position(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
+
+class Tags(models.Model):
+    title = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=200,unique=True)
+    def __str__(self):
+        return self.title
 
 class blogField(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -45,9 +51,16 @@ class blogField(models.Model):
     tags = models.ManyToManyField('Tags',blank=True,related_name='posts')
     related_blog = models.ManyToManyField('self',blank=True)
     discription = models.TextField(blank=True)
-    content = FroalaField()
-    feature_article = models.BooleanField(default=False)
-    hidepost = models.BooleanField(default=False)
+    content = models.TextField(blank=True)
+    publish = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+class BlogImages(models.Model):
+    name = models.CharField(max_length=50)
+    url = models.CharField(max_length=200,unique=True)
+    image = models.ImageField(upload_to='img' , null=True)
+    author = models.ForeignKey(blogField,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name

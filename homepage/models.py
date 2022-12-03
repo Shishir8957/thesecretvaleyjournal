@@ -1,6 +1,6 @@
 from unicodedata import name
 from django.db import models
-from django.forms import ImageField, IntegerField
+from bloggingPage.models import blogField
 
 # Create your models here.
 class headerImg(models.Model):
@@ -10,6 +10,9 @@ class headerImg(models.Model):
     hide = models.BooleanField(default=False)
     def __str__(self):
         return self.name
+
+class FeatureArticle(models.Model):
+    feature_article = models.ForeignKey(blogField,on_delete=models.CASCADE)
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)

@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-kzrf0u$p7=lhj9ugq%l9byy#9h9e$pr+h9w5lvpvu36lb#xv=e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'froala_editor',
     'register',
     'bloggingPage',
     'homepage',
@@ -128,8 +126,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary','spell_checker')
-FLOALA_EDITOR_PLUGINS = ('align','char_counter','code_view','colors','draggable','entities','file','font_family','font_size','fullscreen','hr_rule','image','image_manager','inline_style','line_breaker','link','lists','local_image','media','print','quick_insert','quote','save','special_characters','table','url','video','word_paste')
+# FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary','spell_checker')
+# FLOALA_EDITOR_PLUGINS = ('align','char_counter','code_view','colors','draggable','entities','file','font_family','font_size','fullscreen','hr_rule','image','image_manager','inline_style','line_breaker','link','lists','local_image','media','print','quick_insert','quote','save','special_characters','table','url','video','word_paste')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -162,10 +160,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = "/static/"
+# if DEBUG:
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
     
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 

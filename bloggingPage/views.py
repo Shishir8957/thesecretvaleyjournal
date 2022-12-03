@@ -2,14 +2,19 @@ from django import views
 from django.shortcuts import render
 from .models import *
 
+def tags_detail(request,slug):
+  post = Tags.objects.get(slug__iexact=slug)
+  print(post)
+  return render(request,'all_blog.html',{'tag':post})
 
 def blog(request,slug):
   post = blogField.objects.get(slug=slug)
   return render(request,'blog.html',{'content':post})
 
 def all_blog(request):
+  tags = Tags.objects.all()
   posts = blogField.objects.all().order_by('-date')
-  return render(request,'all_blog.html',{'blog':posts})
+  return render(request,'all_blog.html',{'blog':posts , 'tags':tags})
 
 # def related_blog(request):
 #   related_posts = blogField.objects.filter(related_blog=related_blog)
@@ -20,13 +25,6 @@ def autherName(request,slug):
   name=slug
   return render(request, 'all_blog.html',{'blog':post, 'name':name})
 
-def tags_list(request):
-  tags = Tags.objects.all()
-  return render(request,'tag_list.html',{'post':tags})
-
-def tags_detail(request,slug):
-  post = Tags.objects.get(slug__iexact=slug)
-  return render(request,'tag_detail.html',{'tag':post})
   
 def search(request):
   if 'search' in request.GET:

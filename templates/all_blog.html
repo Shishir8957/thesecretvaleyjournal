@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>homepage</title>
+    <title>All Blog</title>
     <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
     <link rel="shortcut icon" href="{% static 'image/icon.png' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'css/style_all_blog.css' %}">
@@ -53,7 +53,13 @@
         }
 
         header {
-            background: url("{% static '../media/img/background1.jpg' %}");
+            {% if tag %}
+                background: url("{% static '../media/img/background3.jpg' %}");
+            {% elif name %}
+                background: url("{% static '../media/img/background2.jpg' %}");
+            {% else %}
+                background: url("{% static '../media/img/background1.jpg' %}");
+            {% endif %}
             background-size: cover;
             background-position: center;
             min-height: 200px;
@@ -122,6 +128,9 @@
             .card{
                 max-width: 100%;
             }
+            header{
+                min-height: 11rem;
+            }
         }
     </style>
 </head>
@@ -183,25 +192,35 @@
     <!-- header -->
     <header>
         <div class="container center" style="padding: 4rem 0vh;">
-            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">All Blog</h1></div>
+            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">
+                {% if tag %}
+                    {{tag.title}}
+                {% elif name %}
+                    {{name}}
+                {% else %}
+                    All Blog
+                {% endif %}
+            </h1></div>
         </div>
     </header>
 
     <!-- tags -->
-    {% for tag in tags %}
-        <div>
-            <h1>{{tag.tag_name}}</h1>
-        </div>
-    {% endfor%}
+    <div class="container row">
+        {% for tag in tags %}
+            <div class="col s1 center" style="margin:2rem 0 0 0; ">
+                <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn black white-text" style="width:80%">{{tag.title}}</a>
+            </div>
+        {% endfor%}
+    </div>
     
     {% if search %}
-        <h3 style="text-align: center; color:black;">{{search}}</h3>
+        <h4 style="text-align: center; color:black; overflow: hidden; ">{{search}}</h4>
         <hr style="position:unset;width: 30%; height:0.3vh; margin: 0rem auto;">
     {%endif%}
-    {% if name %}
+    <!-- {% if name %}
         <h3 style="text-align: center; color:black;">{{name}}</h3>
         <hr style="position:unset;width: 30%; height:0.3vh; margin: 0rem auto;">
-    {% endif %}
+    {% endif %} -->
     
     <div class="boxContainer hoverable">
         <form action="/blog/search/" class="elementsContainer" style="display:flex;">
@@ -213,22 +232,40 @@
     <div class="container" style="width:100%; margin-top:3rem;">
         <div class="row" style="width: 80%; margin: auto;">
             {% for blog in blog %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card hoverable">
-                        <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
-                            <img src="/media/{{blog.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
-                        </div>
-                        <div class="card-body">
-                        <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                        <p class="card-text truncate2">{{blog.discription}} </p>
-                        <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                {% if blog.publish == True %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card hoverable">
+                            <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
+                                <img src="/media/{{blog.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
+            {% endfor %}
+            {% for blog in tag.posts.all %}
+                {% if blog.publish == True %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card hoverable">
+                            <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
+                                <img src="/media/{{blog.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                            <p class="card-text truncate2">{{blog.discription}} </p>
+                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
-
+ 
     {% if table == 0 %}
         <h3 style="text-align: center; color:black; margin-bottom:4rem;">result not found</h3>
     {% endif %}
