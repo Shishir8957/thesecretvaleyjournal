@@ -154,7 +154,7 @@
         background-position: center;
     }
     #dropdown1 {
-        height: 36px;
+        height: auto;
         overflow: hidden;
         padding: 0.4rem;
         border-radius: 2px;
@@ -241,7 +241,7 @@
 
 <body>
     
-    <!-- nav  -->
+    <!-- nav  --> 
     <nav class="nav-wrapper">
         <div class="container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
@@ -262,12 +262,12 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a href="/history/{{user.id}}" class="waves-effect waves-purple btn white black-text"><i class="bi bi-clock-fill left"></i><b>History</b></a>
                     <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li><a class='center' href="/register/logout" style="padding:0; color:red;"><b>Logout</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
                     <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
@@ -420,7 +420,7 @@
             <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
         </div>
     </footer>
-
+ 
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

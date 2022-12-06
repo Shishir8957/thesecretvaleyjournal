@@ -107,7 +107,7 @@
         }
 
         #dropdown1 {
-            height: 36px;
+            height: auto;
             overflow: hidden;
             padding: 0.4rem;
             border-radius: 2px;
@@ -130,10 +130,10 @@
 </head>
 
 <body>
-    <!-- nav  -->
+    <!-- nav  --> 
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="/" class="brand-logo">Republic KTM</a>
+            <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
@@ -141,7 +141,9 @@
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/admin">Admin</a></li>
+                {% if user.is_superuser %}
+                    <a href="/republic_ktm_4912/" class="waves-effect waves-purple btn white black-text"><i class="bi bi-bar-chart-fill left"></i><b>Admin</b></a>
+                {% endif %}
                 
                 {% if user.is_authenticated %}
                     <!--
@@ -150,10 +152,11 @@
                     </a>-->
                     <!-- Dropdown Trigger -->
                     <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
-
+ 
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
                     <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
@@ -193,7 +196,8 @@
             </h1></div>
         </div>
     </header>
-    
+     
+    <!-- body -->
     <div class="container" style="width:100%; margin-top:3rem;">
         <div class="row" style="width: 80%; margin: auto;">
             {% for blog in blog %}
