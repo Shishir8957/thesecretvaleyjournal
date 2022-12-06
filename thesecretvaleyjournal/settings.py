@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bloggingPage',
     'homepage',
     'social_django',
+    'history',
     'django.contrib.humanize',
     'dbbackup',
 ]
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'republicktm',
+        'NAME': 'republic1',
         'USER': 'postgres',
         'PASSWORD': '1532',
         'HOST': 'localhost',

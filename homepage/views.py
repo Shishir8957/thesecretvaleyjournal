@@ -15,7 +15,6 @@ def check(s):
     else:
         return False
 
-
 # Create your views here.
 def index(request):
     background = list(headerImg.objects.all())
@@ -29,7 +28,7 @@ def service(request):
     return render(request, 'service.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'contact.html') 
 
 def subscribe(request):
     if request.method == 'POST':
@@ -51,6 +50,20 @@ def subscribe(request):
             return redirect('subscribe')  
     else:
         return render(request, 'subscribe.html')
+
+def invitelink(request):
+    mails = subscriptionEmail.objects.all()
+    for mail in mails:
+        data={
+            'email': mail,
+            'message': 'New Blog is there'
+        }
+        message= '''
+            New message: {}
+        '''.format(data['message'],data['email'])
+
+        send_mail('test email', message, 'royell4912@gmail.com', ['kbro1415@gmail.com'])
+    return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="/blog" style="margin:1rem;" type="submit"> Return to home </a></div>')
 
 def contactForm(request):
     if request.method == "POST":

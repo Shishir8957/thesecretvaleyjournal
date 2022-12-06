@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -261,7 +262,7 @@
                         {% endwith %}
                     {% endautoescape %}
                     {% if user.is_superuser %}
-                        <a style="margin-left:2rem; position:unset;" href="/republic_ktm_4912/bloggingPage/blogfield/{{content.id}}/change" class="waves-effect waves-light btn black white-text"><i class="bi bi-pencil-fill left"></i><b>Edit</b></a>
+                        <a style="margin-left:2rem; position:unset;" href="/republic_ktm_4912/bloggingPage/blogfield/{{content.sno}}/change/" class="waves-effect waves-light btn black white-text"><i class="bi bi-pencil-fill left"></i><b>Edit</b></a>
                     {% endif %}
                     
                 </div>
@@ -328,6 +329,32 @@
         </div> 
     </div>
 
+    <!-- comment -->
+    <div class="container">
+        <h1> comment </h1>
+        {% if user.is_authenticated %}
+            <form action="/blog/postComment" method="post">
+                {% csrf_token %}
+                <input type="text" class="browser-default" name="comment">
+                <input type="hidden" name="parentSno" value="">
+                <input type="hidden" name="postSno" value="{{content.sno}}">
+                <input type="submit">
+            </form><br><br>
+            {% for comment in comments %}
+                {{comment.user}}:{{comment.comment}} ---> {{comment.timestamp | naturaltime}} <br>
+                <a>Reply</a>
+                <form action="/blog/postComment" method="post">
+                    {% csrf_token %}
+                    <input type="text" class="browser-default" name="comment">
+                    <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                    <input type="hidden" name="postSno" value="{{content.sno}}">
+                    <input type="submit">
+                </form>
+            {% endfor %}
+        {%  else %}
+            <h3>Login to comment </h3>
+        {% endif %}
+    </div>
     <!-- recomendation card -->
     <div class="container">
         <div class="container center" style="width: 100%;">

@@ -19,6 +19,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+admin.site.site_header = "RepublicKtm Admin"
+admin.site.site_title = "RepublicKtm Admin Panel"
+admin.site.index_title = "Welcome RepublicKtm Admin Panel"
+
 urlpatterns = [
     path('republic_ktm_4912/', admin.site.urls),
     path('',include('homepage.urls')),
@@ -26,6 +30,7 @@ urlpatterns = [
     path('register/',include('register.urls')),
     path('blog/',include('bloggingPage.urls')),
     path('subscribe/',include('subscribe.urls')),
+    path('history/',include('history.urls')),
     # path('falora_editor/',include('froala_editor.urls')),
 ]
 

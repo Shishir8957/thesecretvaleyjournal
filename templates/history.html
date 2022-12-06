@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Blog</title>
+    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'image/icon.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/style_all_blog.css' %}">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        nav {
+            box-shadow: none;
+            position: sticky;
+            top: 0;
+            transition: 1s ease;
+            min-width: 100%;
+        }
+
+        .nav-wrapper {
+            background-color: rgb(0, 0, 0);
+        }
+
+        nav ul a:hover {
+            background-color: transparent;
+            color: #c700ff;
+            font-size: bold;
+        }
+
+        .bi{
+            font-size: 2rem;
+        }
+
+        header {
+            background: url("{% static '../media/img/background4.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            min-height: 200px;
+        }
+        .truncate2{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+        } 
+        .card{
+            background-color: #eaeaea;
+            position: unset;
+            max-width: 100%;
+        }
+        .elementsContainer{
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .boxContainer{
+            margin: auto;
+            margin-top: 3rem;
+            position: unset;
+            max-width: 50%;
+            height: 42px;
+            border: 4px solid #495862;
+            padding: 0px 10px;
+            border-radius: 50px;
+            background-color: #eaeaea;
+        }
+        .search{
+            border: none;
+            width: 100%;
+            height: 100%;
+            padding: 0px 5px;
+            font-size: 18px;
+            color: #424242;
+            font-weight: 500;
+            border-radius: 1rem
+        }
+        .search:focus{
+            outline: none;
+        }
+        td,th{
+            padding: 0;
+        }
+
+        input::placeholder{
+            color: #495862;
+        }
+
+        #dropdown1 {
+            height: 36px;
+            overflow: hidden;
+            padding: 0.4rem;
+            border-radius: 2px;
+        }
+
+        @media screen and (max-width: 700px) {
+            nav .brand-logo {
+                font-size: 1.5rem;
+            }
+        }
+        @media screen and (max-width: 500px){
+            .card{
+                max-width: 100%;
+            }
+            header{
+                min-height: 11rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- nav  -->
+    <nav class="nav-wrapper">
+        <div class="container">
+            <a href="/" class="brand-logo">Republic KTM</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
+                <i class="bi bi-list"></i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                
+                {% if user.is_authenticated %}
+                    <!--
+                    <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
+                        <b>Logout</b>
+                    </a>-->
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content' >
+                        <li><a class='center' href="/register/logout" style="padding:0; color:red;">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                        <b>Sign In</b>
+                    </a>
+                {% endif %}
+            </ul>
+            
+        </div>
+    </nav>
+    <!-- for small screen menu -->
+    <ul class="sidenav grey lighten-2" id="mobile-menu">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/service">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/admin">Admin</a></li>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <li><a href="">Hello,{{user}}</a></li><br/>
+                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
+                    <b>Logout</b>
+                </a>
+            {% else %}
+                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <b>Sign In</b>
+                </a>
+            {% endif %}
+        </div>
+    </ul>
+    <!-- header -->
+    <header>
+        <div class="container center" style="padding: 4rem 0vh;">
+            <div><h1 class="text-white" style="margin:0px; text-shadow: 1px 1px black;">
+                {% if user.is_authenticated %}
+                    {{user}}
+                {% endif %}
+            </h1></div>
+        </div>
+    </header>
+    
+    <div class="container" style="width:100%; margin-top:3rem;">
+        <div class="row" style="width: 80%; margin: auto;">
+            {% for blog in blog %}
+                {% if blog.post.publish == True %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card hoverable">
+                            <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
+                                <img src="/media/{{blog.post.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title truncate" id="cardTitle">{{blog.post.title}}</h5>
+                            <p class="card-text truncate2">{{blog.post.discription}} </p>
+                            <a href="/blog/{{blog.post.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                            <a href="/history/delete/{{blog.post.sno}}" class="red-text"><i class="bi bi-file-x-fill right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+ 
+    {% if table == 0 %}
+        <h3 style="text-align: center; color:black; margin-bottom:4rem;">result not found</h3>
+    {% endif %}
+
+    <!-- footer -->
+    <footer class="page-footer black darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5>The secret valley journal</h5>
+                    <p>The things we do is not normal here</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Usefull Links</h5>
+                    <a href="/blog" style="color:white;">Blog</a><br>
+                    <a href="/contact" style="color:white;">Contact</a><br>
+                    <a href="/service" style="color:white;">Services</a><br>  
+                    <a href="" style="color:white;">hot news</a><br>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <a>Kathmandu, Nepal</a><br>
+                    <a>contact@thesecretvaleyjournal.com</a><br>
+                    <a>+977 987654321</a>
+                </div>
+            </div>
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <div class="d-flex justify-content-evenly" >
+                <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
+                <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>
+                <a href="https://github.com/" style="color:white;"><i class="bi bi-github"></i></a>
+                <a href="https://youtube.com/" style="color:white;"><i class="bi bi-youtube"></i></a>
+            </div>
+            <div class="container">
+                <div style="height: 1rem;"></div>
+            </div>
+        </div>
+
+        <div class="footer-copyright black darken-4">
+            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+        </div>
+    </footer>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav();
+            $('.tooltipped').tooltip();
+            $('.dropdown-trigger').dropdown();
+        });
+      //$(window).on('scroll',function () {
+      //    if ($(window).scrollTop()) {
+      //        $('nav').removeClass('transparent');
+      //    } else{
+      //        $('nav').addClass('transparent');
+      //    }
+      //});
+    </script>
+</body>
+
+</html>
