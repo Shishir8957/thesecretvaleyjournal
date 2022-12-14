@@ -13,7 +13,8 @@ def tags_detail(request,slug):
 def blog(request,slug):
   post = blogField.objects.get(slug=slug)
   comments = BlogComment.objects.filter(post=post)
-  blogField.objects.filter(slug=slug).update(views=F('views')+1)
+  if not request.user.is_superuser:
+    blogField.objects.filter(slug=slug).update(views=F('views')+1)
   if request.user.is_authenticated:
     user = request.user
     if History.objects.filter(post=post).exists():
@@ -44,7 +45,7 @@ def search(request):
   else:
     data = blogField.objects.all()
   return render(request, 'all_blog.html',{'blog':data, 'search':search,'table':num})
-
+ 
 @login_required(login_url='/register')
 def postComment(request):
   if request.method == 'POST':
@@ -56,9 +57,8 @@ def postComment(request):
     if parentSno == "":
       comment = BlogComment(comment=comment,user=user,post=post)
     else:
-      parent = BlogComment.objects.get(sno=parentSno)
+      parent = BlogComment.objects.get(sno=parentSno) 
       comment = BlogComment(comment=comment,user=user,post=post,parent=parent)
     comment.save()
     # messages.success(request,"comment posted successfully")
-
   return redirect(f"/blog/{post.slug}")

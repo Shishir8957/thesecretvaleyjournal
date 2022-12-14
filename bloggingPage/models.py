@@ -17,7 +17,7 @@ class Tags(models.Model):
 class publishingUser(models.Model):
     name = models.CharField(max_length=30)
     img = models.ImageField(upload_to='img' , null=True)
-    def __str__(self):
+    def __str__(self): 
         return self.name
 
 class BlogCatagory(models.Model):
@@ -49,6 +49,7 @@ class blogField(models.Model):
     display_img = models.ImageField(upload_to='img' , null=True)
     display_img_caption = models.CharField(max_length=200,null=True)
     views = models.IntegerField(default=0,null=True,blank=True)
+    like = models.IntegerField(default=0,null=True,blank=True)
     tags = models.ManyToManyField('Tags',blank=True,related_name='posts')
     related_blog = models.ManyToManyField('self',blank=True)
     discription = models.TextField(blank=True)

@@ -79,11 +79,11 @@
         position: unset;
         background-color: #eaeaea;
         padding: 0.1rem;
-        margin: 0rem 1rem;
+        margin: 0rem 2rem;
         border: 0px;
         border-radius: 2px;
         box-shadow: 0px 0px black;
-        width: 18rem;
+        width: 20rem;
     }
     #newsCard:hover{
         box-shadow: 1px 3px 10px #bdb5b5;
@@ -219,7 +219,6 @@
         }
     
         .card {
-            margin: 2rem;
             font-size: 1rem;
         }
         .truncate3{
@@ -266,7 +265,7 @@
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
                         <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
@@ -359,7 +358,7 @@
                     {% for blog in blog %}
                         {% if blog.publish == True %}
                             {% if blog.blog_catagory.title == cat.title %}
-                                <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                                <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:1rem;">
                                     <div class="card" id="newsCard">
                                         <div style="position:unset;" class="card-image" >
                                             <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}">
