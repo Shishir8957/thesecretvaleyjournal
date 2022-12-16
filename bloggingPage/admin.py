@@ -29,7 +29,7 @@ class AuthorImgAdmin(admin.ModelAdmin):
 
 @admin.register(blogField)
 class PostBlogAdmin(admin.ModelAdmin):
-    list_display = ('title','author','views','blog_catagory','photo_tags','publish','click_me')
+    list_display = ('title','author','views','like','blog_catagory','photo_tags','publish','click_me')
     list_filter = ('blog_catagory','author')
 
     def photo_tags(self,obj):

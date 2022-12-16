@@ -167,7 +167,7 @@
             }
             .mainHeader{
                 margin:0px;
-                font-size:35pt;
+                font-size:32pt;
                 font-weight:500;
             }
             
@@ -374,24 +374,52 @@
         </div>
 
         <!-- like -->
-        {% if user.is_superuser %}
+        {% if user.is_authenticated %}
+            {% if like.like %}
+                <div class="center">
+                    <a style="margin-left:2rem; position:unset;" href="/history/removelike/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
+                        <i class="bi bi-heart-fill left"></i>
+                        <b>{{content.like}} &nbsp like</b>
+                    </a>
+                </div>
+            {% else %}
+                <div class="center">
+                    <a style="margin-left:2rem; position:unset;" href="/history/like/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
+                        <i class="bi bi-heart left"></i>
+                        <b>{{content.like}} &nbsp like</b>
+                    </a>
+                </div>
+            {% endif %}
+            
+        {% else %}
+            <!-- Modal Trigger -->
             <div class="center">
-                <a style="margin-left:2rem; position:unset;" href="/history/like/" class="waves-effect waves-light btn black white-text">
+                <a style="margin-left:2rem; position:unset;" href="#modal1" class="waves-effect waves-light btn black white-text modal-trigger">
                     <i class="bi bi-heart left"></i>
                     <b>like</b>
                 </a>
             </div>
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal" style="height:auto;">
+                <div class="modal-content" style="border-bottom: 0px">
+                    <h5>Login to like this post!!!</h5>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    <a href="/register/" class="modal-close waves-effect waves-green btn-flat">Login</a>
+                </div>
+            </div>
         {% endif %}
 
         <!-- comment -->
-        <div class="container bodycontainer">
+        {% comment %} <div class="container bodycontainer">
             
             <div>
                 {% if user.is_authenticated %}
                     <br>
                     <ul class="collapsible">
                         <li class="container" style="width:95%">
-                            <h3> Comments </h3>
+                            
                             <form action="/blog/postComment" method="post" class="col s12">
                                 <div class="row">
                                     <div class="input-field col s6">
@@ -422,10 +450,75 @@
                         <a> {{comment.user}}: <b>{{comment.comment}}</b>&nbsp; &nbsp; &nbsp;{{comment.timestamp | naturaltime}} <br><a>
                     {% endfor %}
                     <hr>
-                    <br><h5><i class="bi bi-exclamation-circle-fill left"></i> Login To Comment <a href="/register/" class="waves-effect waves-grey btn black white-text right"><b>Login</b></a></h5>
+                    <br><h5><i class="bi bi-exclamation-circle-fill left"></i> Login To Comment </h5>
                 {% endif %}
             </div>
-        </div>
+        </div> {% endcomment %}
+        <div class="row d-flex justify-content-center container" style="width:100%">
+            <div class="col-md-8 col-lg-6">
+              <div class="card shadow-0 border" style="background-color: #fff;padding:0;">
+                {% if user.is_authenticated %}
+                    <div class="card-body p-4">
+                        <h4>Comment Here</h4>
+                        <form action="/blog/postComment" method="post" class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    {% csrf_token %}
+                                    <grammarly-extension data-grammarly-shadow-root="true" style="mix-blend-mode: darken; position: absolute; top: 0px; left: 0px; pointer-events: none;" class="cGcvT"></grammarly-extension>
+                                    <i class="material-icons prefix"><i class="bi bi-chat-left-dots"></i></i>
+                                    <input id="icon_prefix" type="text" name="comment" spellcheck="true" required>
+                                    <label for="icon_prefix">Comment Here</label>
+                                    <input type="hidden" name="parentSno" value="">
+                                    <input type="hidden" name="postSno" value="{{content.sno}}">
+                                    <button type="submit" class="btn black white-text right" style="margin-top: 2rem;">
+                                        <b>Submit</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        {% for comment in comments %}
+                            <div class="card" style="background-color:#f0f2f5; padding:0;">
+                                <div class="card-body" style="padding:1rem">
+                                    <div class="d-flex justify-content-between" style="margin-bottom: 1rem;">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTHTAJPlLEQwOQG_g-WNP0WayMmnpM-Nq9ZA&usqp=CAU" alt="avatar" width="25" height="25" />
+                                            <p class="medium mb-0 ms-2">{{comment.user}}</p>
+                                        </div>
+                                        
+                                        <div style="font-size:1rem; color:black">
+                                            <a>{{comment.timestamp | naturaltime}}</a>
+                                            {% if comment.user.id is user.id %}
+                                                &nbsp;&nbsp;<a href="/blog/deleteComment/{{comment.sno}}"><i style="font-size:1.2rem;padding:0px;margin:0px;color:#e61818" class="bi bi-trash-fill right"></i></a>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                    <h6>{{comment.comment}}</h6>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <div class="card-body p-4">
+                    <h4>Comments</h4>
+                    <br><h5><i class="bi bi-exclamation-circle-fill left"></i> Login To Comment </h5><br>
+                    {% for comment in comments %}
+                        <div class="card" style="background-color:#f0f2f5; padding:0;">
+                            <div class="card-body" style="padding:1rem">
+                                <div class="d-flex justify-content-between" style="margin-bottom: 1rem;">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTHTAJPlLEQwOQG_g-WNP0WayMmnpM-Nq9ZA&usqp=CAU" alt="avatar" width="25" height="25" />
+                                        <p class="medium mb-0 ms-2">{{comment.user}}</p>
+                                    </div>
+                                    <a style="font-size:1rem; color:black">{{comment.timestamp | naturaltime}}</a>
+                                </div>
+                                <h6>{{comment.comment}}</h6>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
     </div>
     <!-- recomendation card -->
     <div class="container">
@@ -501,6 +594,7 @@
             $('.tooltipped').tooltip();
             $('.dropdown-trigger').dropdown();
             $('.collapsible').collapsible();
+            $('.modal').modal();
 
         });
       //$(window).on('scroll',function () {

@@ -54,6 +54,7 @@ def subscribe(request):
 def invitelink(request):
     mails = subscriptionEmail.objects.all()
     for mail in mails:
+        print(mail)
         data={
             'email': mail,
             'message': 'New Blog is there'
@@ -61,7 +62,6 @@ def invitelink(request):
         message= '''
             New message: {}
         '''.format(data['message'],data['email'])
-
         send_mail('test email', message, 'royell4912@gmail.com', ['kbro1415@gmail.com'])
     return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="/blog" style="margin:1rem;" type="submit"> Return to home </a></div>')
 

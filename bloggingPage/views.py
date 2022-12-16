@@ -3,25 +3,29 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from .models import *
-from history.models import *
+from history.models import * 
 
 def tags_detail(request,slug):
   post = Tags.objects.get(slug__iexact=slug)
   print(post)
   return render(request,'all_blog.html',{'tag':post})
-
+ 
 def blog(request,slug):
   post = blogField.objects.get(slug=slug)
-  comments = BlogComment.objects.filter(post=post)
+  comments = BlogComment.objects.filter(post=post).order_by('-timestamp')
   if not request.user.is_superuser:
     blogField.objects.filter(slug=slug).update(views=F('views')+1)
   if request.user.is_authenticated:
     user = request.user
     if History.objects.filter(post=post).exists():
       print('already_exits...')
-    else:
+    else: 
       userhistory = History.objects.create(post=post,user=user)
       userhistory.save
+    if likePost.objects.filter(post=post).exists():
+      for like in likePost.objects.filter(post=post):
+        like = like
+      return render(request,'blog.html',{'content':post,'comments':comments,'like':like})
   return render(request,'blog.html',{'content':post,'comments':comments})
 
 def all_blog(request):
@@ -62,3 +66,16 @@ def postComment(request):
     comment.save()
     # messages.success(request,"comment posted successfully")
   return redirect(f"/blog/{post.slug}")
+
+@login_required(login_url='/register')
+def deleteComment(request,slug):
+  post = BlogComment.objects.filter(sno=slug)
+  for posts in post:
+    if posts.post.slug != '':
+      posts = posts.post.slug
+  print1=BlogComment.objects.filter(sno=slug)
+  for p in print1:
+    if request.user.username == p.user.username:
+      BlogComment.objects.filter(sno=slug).delete()
+      return redirect(f"/blog/{posts}")
+  return redirect(f"/blog/")
