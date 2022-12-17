@@ -27,7 +27,7 @@
             font-family: sans-serif;
         }
         body{
-            background-color: grey;
+            background: url("/static/image/background1.jpg");
             background-size: cover;
             background-position: center;
             height: auto;
@@ -85,7 +85,7 @@
 
 <body>
     <!-- nav  -->
-    <nav class="nav-wrapper">
+    <nav class="nav-wrapper" style="z-index: 1;">
         <div class="container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
@@ -152,6 +152,9 @@
                         <div id="login" class="col s12">
                             <form style="margin: 3rem 2rem;" action="login" method="post">
                                 {% csrf_token %}
+                                {% if request.GET.next %}
+                                    <input type="hidden" name="next" value="{{request.GET.next}}">
+                                {% endif %}
                                 {% for message in messages %}
                                     <p style="color: red; margin: 0px; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
                                 {% endfor %}
@@ -170,6 +173,7 @@
                                         <label>
                                             <input type="checkbox">
                                             <span>Remember Me</span>
+                                            <a href="#">forget password</a>
                                         </label>
                                     </p>
                                 </div>
@@ -227,7 +231,44 @@
                 </div>
             </div>
         </div>
-    
+    <!-- footer -->
+    <footer class="page-footer black darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5>The secret valley journal</h5>
+                    <p>The things we do is not normal here</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Usefull Links</h5>
+                    <a href="/blog" style="color:white;">Blog</a><br>
+                    <a href="/contact" style="color:white;">Contact</a><br>
+                    <a href="/service" style="color:white;">Services</a><br>  
+                    <a href="" style="color:white;">hot news</a><br>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <a>Kathmandu, Nepal</a><br>
+                    <a>contact@thesecretvaleyjournal.com</a><br>
+                    <a>+977 987654321</a>
+                </div>
+            </div>
+            <hr class="center" style="position: unset; width: 80%; height: 0.3vh; margin: 1rem auto;">
+            <div class="d-flex justify-content-evenly" >
+                <a href="https://instagram.com/" style="color:white;"><i class="bi bi-instagram"></i></a>
+                <a href="https://facebook.com/" style="color:white;"><i class="bi bi-facebook"></i></a>
+                <a href="https://github.com/" style="color:white;"><i class="bi bi-github"></i></a>
+                <a href="https://youtube.com/" style="color:white;"><i class="bi bi-youtube"></i></a>
+            </div>
+            <div class="container">
+                <div style="height: 1rem;"></div>
+            </div>
+        </div>
+
+        <div class="footer-copyright black darken-4">
+            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+        </div>
+    </footer>
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

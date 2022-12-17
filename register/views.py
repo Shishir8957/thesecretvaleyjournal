@@ -87,6 +87,8 @@ def login(request):
         
         if user is not None:
             auth.login(request, user)
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
             return redirect("/")
         else:
             messages.info(request,'Invalid credentials')
@@ -96,6 +98,9 @@ def login(request):
         
 def logout(request):
     auth.logout(request)
+    if request.method == 'POST':
+        if 'next' in request.POST:
+            return redirect(request.POST.get('next'))
     return redirect('register')
 
 def search(request): 
