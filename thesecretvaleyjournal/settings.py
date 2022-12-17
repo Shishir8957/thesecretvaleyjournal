@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'republic1',
+        'NAME': 'republic2',
         'USER': 'postgres',
         'PASSWORD': '1532',
         'HOST': 'localhost',

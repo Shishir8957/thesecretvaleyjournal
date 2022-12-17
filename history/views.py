@@ -24,7 +24,13 @@ def like(request,slug):
     user = request.user
     like = likePost.objects.filter(post=post)
     if likePost.objects.filter(post=post).exists():
-        print('already_exits...')
+        for like in likePost.objects.filter(post=post):
+            if like.user != request.user.username:
+                like = likePost.objects.create(post=post,user=user,like=True)
+                like.save
+                blogField.objects.filter(slug=slug).update(like=F('like')+1)
+            else:
+                print('already_exits...')
     else:
         like = likePost.objects.create(post=post,user=user,like=True)
         like.save
@@ -35,10 +41,17 @@ def like(request,slug):
 def removelike(request,slug):
     post = blogField.objects.get(slug=slug)
     like = likePost.objects.filter(post=post)
-    if not likePost.objects.filter(post=post).exists():
-        print('not_exits...')
+    if likePost.objects.filter(post=post).exists():
+        for like in likePost.objects.filter(post=post):
+            print(like.user)
+            print(request.user.username)
+            print(like.user.username == request.user.username)
+            if like.user.username == request.user.username:
+                like = likePost.objects.filter(user=request.user)
+                like.delete()
+                blogField.objects.filter(slug=slug).update(like=F('like')-1)
+            else:
+                print('notexist...')
     else:
-        like = likePost.objects.filter(post=post)
-        like.delete()
-        blogField.objects.filter(slug=slug).update(like=F('like')-1)
+        print('notexist...')
     return redirect(f'/blog/{slug}',{'likepost':like})

@@ -112,7 +112,7 @@
         <div class="container" style="height: 27rem; background-color:#000c; border-radius: 6px; ">
             <h2 style="display: flex; font-size: 2.5rem; align-items: center; justify-content: center; margin:0px; padding: 3rem; color:white;">Subscribe Here</h2>
             {% for message in messages %}
-                {% if '{{message}}' == 'Your email is submitted' %}
+                {% if colors == True %}
                     <p style="color: green; margin: 0px; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
                 {% else %}
                     <p style="color: red; margin: 0px; display:flex; align-item:center; justify-content: center;"> {{message}}</p>

@@ -17,20 +17,18 @@ def blog(request,slug):
     blogField.objects.filter(slug=slug).update(views=F('views')+1)
   if request.user.is_authenticated:
     user = request.user
-    if History.objects.filter(post=post).exists():
-      print('already_exits...')
-    else: 
+    if not History.objects.filter(post=post).exists():
       userhistory = History.objects.create(post=post,user=user)
       userhistory.save
-    if likePost.objects.filter(post=post).exists():
-      for like in likePost.objects.filter(post=post):
-        like = like
-      return render(request,'blog.html',{'content':post,'comments':comments,'like':like})
+    for likes in likePost.objects.filter(post=post):
+      if likes.user == request.user:
+          like = likes
+          return render(request,'blog.html',{'content':post,'comments':comments,'like':like})
   return render(request,'blog.html',{'content':post,'comments':comments})
 
 def all_blog(request):
   tags = Tags.objects.all()
-  posts = blogField.objects.all().order_by('-date')
+  posts = blogField.objects.filter(publish=True).order_by('-date')
   return render(request,'all_blog.html',{'blog':posts , 'tags':tags})
 
 def autherName(request,slug):

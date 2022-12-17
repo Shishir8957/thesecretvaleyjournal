@@ -211,7 +211,7 @@
     <div class="container row">
         {% for tag in tags %}
             <div class="col s1 center" style="margin:2rem 0 0 0; ">
-                <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn black white-text" style="width:80%">{{tag.title}}</a>
+                <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn black white-text" style="width:80%; position: unset;">{{tag.title}}</a>
             </div>
         {% endfor%}
     </div>
@@ -225,6 +225,7 @@
         <hr style="position:unset;width: 30%; height:0.3vh; margin: 0rem auto;">
     {% endif %} -->
     
+    <!-- Search box-->
     <div class="boxContainer hoverable">
         <form action="/blog/search/" class="elementsContainer" style="display:flex;">
             <input type="search" style="background: transparent;" placeholder="Search" class="search browser-default" name="search">
@@ -232,6 +233,7 @@
         </form>
     </div>
 
+    <!-- blog body -->
     <div class="container" style="width:100%; margin-top:3rem;">
         <div class="row" style="width: 80%; margin: auto;">
             {% for blog in blog %}
@@ -250,6 +252,7 @@
                     </div>
                 {% endif %}
             {% endfor %}
+            <!-- Tags Blog field-->
             {% for blog in tag.posts.all %}
                 {% if blog.publish == True %}
                     <div class="col-12 col-md-6 col-lg-4">
@@ -331,4 +334,4 @@
     </script>
 </body>
 
-</html>
+</html> 

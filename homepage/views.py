@@ -29,7 +29,7 @@ def service(request):
 
 def contact(request):
     return render(request, 'contact.html') 
-
+ 
 def subscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -42,9 +42,11 @@ def subscribe(request):
             subscribe=subscriptionEmail(email=email)
             subscribe.save()
             send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
+            color = True
             messages.info(request,'Your email is submitted')
-            return redirect('subscribe')
-            # return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
+            print(color)
+            return render(request, 'subscribe.html',{'colors':color})
+            #return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
         else:
             messages.info(request,'Enter the valid email')
             return redirect('subscribe')  

@@ -118,9 +118,15 @@
         .input-field .prefix.active{
             color:black;
         }
+        .titleDiscription{
+            font-size:16pt;
+            font-weight:2pt;
+            position:unset;
+            color: #000000bf;
+        }
         @media screen and (max-width: 900px){
             .bodycontainer{
-                width:80%;
+                width:90%;
             }
             .mainHeader{
                 margin:0px;
@@ -163,14 +169,19 @@
                 overflow: hidden;
             }
             .bodycontainer{
-                width:80%;
+                width:95%;
             }
             .mainHeader{
                 margin:0px;
-                font-size:32pt;
+                font-size:30pt;
                 font-weight:500;
             }
-            
+            .titleDiscription{
+                font-size:14pt;
+                font-weight:2pt;
+                position:unset;
+                color: #000000bf;
+            }
         }
     </style>
 </head>
@@ -245,7 +256,7 @@
     {% endfor%}
     <!-- body --> 
     <div class="container bodycontainer">
-        <!-- auther body --> 
+        <!-- blog title --> 
         <div class="" style="padding: 1rem 0vh;">
             <div class="d-flex justify-content-between">
                 <div class="p-2">
@@ -258,8 +269,9 @@
                 </div>
             </div>
             <h1 class="mainHeader">{{content.title}}</h1><br>
-            <p style="font-size:16pt; font-weight:2pt; position:unset; color: #000000bf;"> {{content.discription}} </p>
+            <p class="titleDiscription"> {{content.discription}} </p>
         </div>
+        <!-- auther body --> 
         <div class=""> 
                 <hr>
                 <div class="row">
@@ -362,10 +374,9 @@
         </div>
         <!-- body -->
         <div class="container blogimg bodycontainer" >
-            <div class="container center blog_img" >
+            <div class="container center blog_img" style="width:100%">
                 <img src="/media/{{content.display_img}}" alt="" style="width: 100%;">
-                <br>
-                <a><i>fig:{{content.display_img_caption}}</i></a>
+                <a style="color: #000000a6;"><i>fig:{{content.display_img_caption}}</i></a>
                 <br><br>
             </div>
             <div class="wrapper" style="min-width:100%;">
@@ -374,42 +385,43 @@
         </div>
 
         <!-- like -->
-        {% if user.is_authenticated %}
-            {% if like.like %}
-                <div class="center">
-                    <a style="margin-left:2rem; position:unset;" href="/history/removelike/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
-                        <i class="bi bi-heart-fill left"></i>
-                        <b>{{content.like}} &nbsp like</b>
-                    </a>
-                </div>
+        <div>
+            {% if user.is_authenticated %}
+                {% if like.like %}
+                    <div class="center">
+                        <a style="margin-left:2rem; position:unset;" href="/history/removelike/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
+                            <i class="bi bi-heart-fill left"></i>
+                            <b>{{content.like}} &nbsp like</b>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="center">
+                        <a style="margin-left:2rem; position:unset;" href="/history/like/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
+                            <i class="bi bi-heart left"></i>
+                            <b>{{content.like}} &nbsp like</b>
+                        </a>
+                    </div>
+                {% endif %}
             {% else %}
+                <!-- Modal Trigger -->
                 <div class="center">
-                    <a style="margin-left:2rem; position:unset;" href="/history/like/{{content.slug}}/" class="waves-effect waves-light btn black white-text">
+                    <a style="margin-left:2rem; position:unset;" href="#modal1" class="waves-effect waves-light btn black white-text modal-trigger">
                         <i class="bi bi-heart left"></i>
                         <b>{{content.like}} &nbsp like</b>
                     </a>
                 </div>
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal" style="height:auto;">
+                    <div class="modal-content" style="border-bottom: 0px">
+                        <h5>Login to like this post!!!</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                        <a href="/register/" class="modal-close waves-effect waves-green btn-flat">Login</a>
+                    </div>
+                </div>
             {% endif %}
-            
-        {% else %}
-            <!-- Modal Trigger -->
-            <div class="center">
-                <a style="margin-left:2rem; position:unset;" href="#modal1" class="waves-effect waves-light btn black white-text modal-trigger">
-                    <i class="bi bi-heart left"></i>
-                    <b>like</b>
-                </a>
-            </div>
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal" style="height:auto;">
-                <div class="modal-content" style="border-bottom: 0px">
-                    <h5>Login to like this post!!!</h5>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                    <a href="/register/" class="modal-close waves-effect waves-green btn-flat">Login</a>
-                </div>
-            </div>
-        {% endif %}
+        </div>
 
         <!-- comment -->
         {% comment %} <div class="container bodycontainer">
@@ -455,7 +467,7 @@
             </div>
         </div> {% endcomment %}
         <div class="row d-flex justify-content-center container" style="width:100%">
-            <div class="col-md-8 col-lg-6">
+            <div class="col-md-8 col-lg-8">
               <div class="card shadow-0 border" style="background-color: #fff;padding:0;">
                 {% if user.is_authenticated %}
                     <div class="card-body p-4">
@@ -488,7 +500,18 @@
                                         <div style="font-size:1rem; color:black">
                                             <a>{{comment.timestamp | naturaltime}}</a>
                                             {% if comment.user.id is user.id %}
-                                                &nbsp;&nbsp;<a href="/blog/deleteComment/{{comment.sno}}"><i style="font-size:1.2rem;padding:0px;margin:0px;color:#e61818" class="bi bi-trash-fill right"></i></a>
+                                                <!-- trigger for deleting comment  -->
+                                                &nbsp;&nbsp;<a class="modal-trigger" href="#modal2"><i style="font-size:1.2rem;padding:0px;margin:0px;color:#e61818" class="bi bi-trash-fill right"></i></a>
+                                                <div id="modal2" class="modal" style="height:auto;">
+                                                    <div class="modal-content" style="border-bottom: 0px">
+                                                        <h3>Delete this comment</h3>
+                                                        <p> {{comment.comment}}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                                                        <a href="/blog/deleteComment/{{comment.sno}}" class="modal-close waves-effect waves-red btn-flat">Delete</a>
+                                                    </div>
+                                                </div>
                                             {%endif%}
                                         </div>
                                     </div>
@@ -529,18 +552,20 @@
         <div class="wrapper" style="overflow-x: scroll;overflow-y: hidden;">
             <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px; display:flex;">
                 {% for blog in content.related_blog.all %}
-                    <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                        <div class="card" id="newsCard">
-                            <div style="position:unset;" class="card-image" >
-                                <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="../media/{{blog.display_img}}">
-                            </div>
-                            <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                    {% if blog.publish == True %}
+                        <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
+                            <div class="card" id="newsCard">
+                                <div style="position:unset;" class="card-image" >
+                                    <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="../media/{{blog.display_img}}">
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                <p class="card-text truncate2">{{blog.discription}} </p>
+                                <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
