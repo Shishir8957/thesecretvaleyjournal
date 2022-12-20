@@ -1,5 +1,5 @@
 import email
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User,auth
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -58,7 +58,7 @@ def register(request):
                 user.save(); 
                 randomString.objects.create(random=token,user=user).save
                 messages.info(request,'Please Check Your Email for verification')
-                return redirect('login')
+                return render(request,'account.html',{'color':True})
         else:
             messages.info(request,'password does not match')
             return redirect('/register')   
@@ -73,10 +73,10 @@ def activateUser(request,slug):
             user.save();
             randomString.objects.filter(random=slug).delete()
             messages.info(request,'Enter your credientials')
-            return redirect('login')
+            return redirect('register')
     else:
-        messages.info(request,'You are already verified')
-        return redirect('login')
+        messages.info(request,'link no longer valid')
+    return redirect('register')
 
 def login(request):        
     if request.method == 'POST':
@@ -103,5 +103,53 @@ def logout(request):
             return redirect(request.POST.get('next'))
     return redirect('register')
 
+def password_reset(request):
+    return render(request,'password_reset.html')
+
+def email_submited(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        token = ''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(7))
+        u=User.objects.filter(email=email)
+        print(u)
+        if not u:
+            send_mail('Register your email', f"Register your email http://127.0.0.1:8000/register/ ", 'royell4912@gmail.com', [email],fail_silently=False)
+        else:
+            for user in u:
+                token = ''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(7))
+                send_mail('Reset password', f"Reset password http://127.0.0.1:8000/register/password_reset/{token}/ ", 'royell4912@gmail.com', [email],fail_silently=False)
+                print(user)
+                randomString.objects.create(random=token,user=user).save
+    return HttpResponse('<div style="text-align: center; margin: 17rem;">Please check your email<br> <a href="/blog" style="margin:1rem;" type="submit"> Return to home </a></div>')
+
+def userValid(request,slug):
+    for token in randomString.objects.filter(random=slug):
+        if (token.random == slug):
+            return render(request,'new_password.html') 
+    else:
+        messages.info(request,'link no longer valid')
+        return redirect('login')
+
+def update_password(request,slug):
+    if request.method == 'POST':
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        if password1 == password2:
+            users = randomString.objects.filter(random=slug)
+            for user in users:
+                username = user.user.username
+                email = user.user.email
+                user = User.objects.get(username=user.user)
+                user.set_password(password1)
+                user.save(); 
+                send_mail('Your password change successfully', f"Your password change successfully for {username} ", 'royell4912@gmail.com', [email],fail_silently=False)
+                randomString.objects.filter(random=slug).delete()
+            messages.info(request,'Password Updated Successfully')
+            return redirect('register')
+        else:
+            messages.info(request,'password does not match')
+            return redirect(f'/register/password_reset/{slug}') 
+    return redirect('register')
+
 def search(request): 
-    return render(request,'index.html') 
+    return render(request,'index.html')

@@ -13,6 +13,8 @@ class headerImg(models.Model):
 
 class FeatureArticle(models.Model):
     feature_article = models.ForeignKey(blogField,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.feature_article.title
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)

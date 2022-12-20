@@ -6,8 +6,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>homepage</title>
-    <link rel="shortcut icon" href="./image/icon.png" type="image/x-icon" />
+    <title>Register</title>
+    <link rel="shortcut icon" href="{%static './image/icon.png'%}" type="image/x-icon" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -54,8 +54,8 @@
         .account{
             background-color: #FFFFFFDE;
             max-height: 45rem;
-            width: 30rem;
-            margin: 15% auto 0px auto;
+            width: 50%;
+            margin: 10% auto 10% auto;
             border-radius: 3px;
         }
         .tabs .indicator {
@@ -71,14 +71,21 @@
             background-color: transparent;
             outline: none;
         }
-
+        @media screen and (max-width: 900px){
+            .account{
+                width: 80%;
+            }
+        }
         @media screen and (max-width: 699px) {
             nav .brand-logo {
                 font-size: 1.5rem;
             }
-            .account{
-                margin: 35% auto 0px auto;
-            }
+            .account {
+                background-color: #FFFFFFDE;
+                width: 100%;
+                margin: 10% 0 10% 0;
+                border-radius: 3px;
+              }
         }
     </style>
 </head>
@@ -133,9 +140,9 @@
         </div>
     </ul>
 
-    
+    {% block content %}
         <!-- signin card -->
-        <div class="container">
+        <div class="container" style="width:100%;">
             <div class="row center">
                 <div class="col s12 m12 l12" style="display:flex; justify-content:center;">
                     <div class="account">
@@ -147,16 +154,23 @@
                                 <a href="#signin" class="white-text text-darken-4">Signin</a>
                             </li>
                         </ul>
-                        
                         <!-- login -->
                         <div id="login" class="col s12">
-                            <form style="margin: 3rem 2rem;" action="login" method="post">
+                            <form style="margin: 1rem 2rem;" action="login" method="post">
                                 {% csrf_token %}
                                 {% if request.GET.next %}
                                     <input type="hidden" name="next" value="{{request.GET.next}}">
                                 {% endif %}
                                 {% for message in messages %}
-                                    <p style="color: red; margin: 0px; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
+                                    {% if color == True %}
+                                        <div class="alert alert-primary" role="alert" style="color: #267c28;background-color: #008e1647;border-color: #0d690000;">
+                                            {{message}}
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-primary" role="alert" style="color: #ba1d1d;background-color: #ff222236;border-color: #002c6900;">
+                                            {{message}}
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                                 <div class="input-field">
                                     <i class="material-icons prefix">account_circle</i>
@@ -173,7 +187,7 @@
                                         <label>
                                             <input type="checkbox">
                                             <span>Remember Me</span>
-                                            <a href="#">forget password</a>
+                                            <a href="/register/password_reset/">forget password</a>
                                         </label>
                                     </p>
                                 </div>
@@ -184,10 +198,18 @@
                         </div>
                         <!-- signup -->
                         <div id="signin" class="col s12">
-                            <form style="margin: 3rem 2rem;" action="signin" method="post">
+                            <form style="margin: 1rem 2rem;" action="signin" method="post">
                                 {% csrf_token %}
                                 {% for message in messages %}
-                                    <p style="color: red; margin: auto; display:flex; align-item:center; justify-content: center;"> {{message}}</p>
+                                    {% if color == True %}
+                                        <div class="alert alert-primary" role="alert" style="color: #267c28;background-color: #008e1647;border-color: #0d690000;">
+                                            {{message}}
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-primary" role="alert" style="color: #ba1d1d;background-color: #ff222236;border-color: #002c6900;">
+                                            {{message}}
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                                 <div class="input-field">
                                     <i class="material-icons prefix">person</i>
@@ -231,6 +253,7 @@
                 </div>
             </div>
         </div>
+    {% endblock%}
     <!-- footer -->
     <footer class="page-footer black darken-3">
         <div class="container">

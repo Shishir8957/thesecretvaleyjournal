@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import *
 from django.utils.html import format_html
-# from django.contrib.auth.admin import UserAdmin
 
 # admin.site.register(User,UserAdmin)
 
@@ -29,7 +28,7 @@ class AuthorImgAdmin(admin.ModelAdmin):
 
 @admin.register(blogField)
 class PostBlogAdmin(admin.ModelAdmin):
-    list_display = ('title','author','views','like','blog_catagory','photo_tags','publish','click_me')
+    list_display = ('title','author','views','like','blog_catagory','author','photo_tags','publish','click_me')
     list_filter = ('blog_catagory','author')
 
     def photo_tags(self,obj):
@@ -43,6 +42,8 @@ class PostBlogAdmin(admin.ModelAdmin):
         
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('comment','user','post','parent')
+    list_filter = ('post','user')
+
 
 admin.site.register(BlogImages,BlogImagesAdmin)
 admin.site.register(BlogCatagory,CatagoryAdmin)

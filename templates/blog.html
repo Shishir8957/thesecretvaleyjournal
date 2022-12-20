@@ -260,7 +260,7 @@
         <div class="" style="padding: 1rem 0vh;">
             <div class="d-flex justify-content-between">
                 <div class="p-2">
-                    <a>{{content.blog_catagory.title}}</a><br><br>
+                    <a>{{content.blog_catagory.title|upper}}</a><br><br>
                 </div>
                 <div class="right">
                     {% if user.is_superuser %}

@@ -6,7 +6,10 @@ from django.core.validators import validate_email
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from .models import Contact,subscriptionEmail,headerImg,FeatureArticle
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 import re
+
 
 def check(s):
     pat = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -29,7 +32,17 @@ def service(request):
 
 def contact(request):
     return render(request, 'contact.html') 
- 
+
+def invitelinklest(request):
+    mail = subscriptionEmail.objects.all()
+    for email in mail:
+        subject = 'New blog is here!'
+        letest = blogField.objects.last()
+        html_message = render_to_string('blog_email.html',{'blog':letest,'email':email})
+        plain_message = strip_tags(html_message)
+        send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
+    return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="http://127.0.0.1:8000/" style="margin:1rem;" type="submit"> Return to home </a></div>')
+
 def subscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -41,7 +54,10 @@ def subscribe(request):
         elif check(email) == True:
             subscribe=subscriptionEmail(email=email)
             subscribe.save()
-            send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
+            subject = 'test subject'
+            html_message = render_to_string('contact_form.html', {'email': email})
+            plain_message = strip_tags(html_message)
+            send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
             color = True
             messages.info(request,'Your email is submitted')
             print(color)
