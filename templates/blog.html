@@ -124,6 +124,13 @@
             position:unset;
             color: #000000bf;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
         @media screen and (max-width: 900px){
             .bodycontainer{
                 width:90%;
@@ -187,7 +194,7 @@
 </head>
 
 <body>
-    <!-- nav  -->
+    <!-- nav  --> 
     <nav class="nav-wrapper">
         <div class="container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
@@ -208,15 +215,15 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b><i class="bi bi-person-circle left"></i>{{user}}</b></a>
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
-                        <li style="min-height:30px;"><a type="submit" class='center' href="/register/logout?next=/blog/{{content.slug}}" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
-                    <a type="submit" href="/register?next=/blog/{{content.slug}}" class="waves-effect waves-purple btn white black-text">
+                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
                 {% endif %}
@@ -229,19 +236,31 @@
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <div class="container">
-            {% if user.is_authenticated %}
-                <li><a href="">Hello,{{user}}</a></li><br/>
-                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                    <b>Logout</b>
-                </a>
-            {% else %}
-                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            {% endif %}
-        </div>
+        
+        <li>
+            <div class="container" style="width: 85%;">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li><a href="/republic_ktm_4912">Admin</a></li>
+                    {% endif%}
+                    <li>
+                        <a href="/history/" style="">History</a>
+                    </li>
+                    <div>
+                        <li><a>Hello,{{user}}</a></li><br/>
+                        <li>
+                            <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text"> <b>Logout</b></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <li>
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+        </li>
     </ul>
     <!-- header -->
     <header>

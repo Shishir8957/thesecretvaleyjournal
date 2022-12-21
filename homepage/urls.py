@@ -7,7 +7,7 @@ urlpatterns = [
     path('subscribe/',views.subscribe,name='subscribe'),
     path('unsubscribe/<str:slug>',views.unsubscribe,name='unsubscribe'),
     path('invitelinklest/',views.invitelinklest,name='invitelinklest'),
-    path('invitelink/',views.invitelink,name='invitelink'),
+    # path('invitelink/',views.invitelink,name='invitelink'),
     path('contact/',views.contact,name='contact'),
     path('contact/form',views.contactForm,name='contactForm')
 ] 

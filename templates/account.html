@@ -71,6 +71,9 @@
             background-color: transparent;
             outline: none;
         }
+        nav .brand-logo {
+            position: unset;
+        }
         @media screen and (max-width: 900px){
             .account{
                 width: 80%;
@@ -79,6 +82,7 @@
         @media screen and (max-width: 699px) {
             nav .brand-logo {
                 font-size: 1.5rem;
+                position: unset;
             }
             .account {
                 background-color: #FFFFFFDE;
@@ -91,33 +95,13 @@
 </head>
 
 <body>
-    <!-- nav  -->
-    <nav class="nav-wrapper" style="z-index: 1;">
-        <div class="container">
-            <a href="/" class="brand-logo">REPUBLIC KTM</a>
+    <!-- nav  --> 
+    <nav class="nav-wrapper" style="z-index:1;position: unset;">
+        <div class="container center">
+            <a href="/" class="brand-logo" style="z-index:1;">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
-            </a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/service">Services</a></li>
-                <li><a href="/contact">Contact</a></li>
-                {% if user.is_superuser %}
-                    <a href="/republic_ktm_4912/" class="waves-effect waves-purple btn white black-text"><i class="bi bi-bar-chart-fill left"></i><b>Admin</b></a>
-                {% endif %}
-                
-                {% if user.is_authenticated %}
-                    <!--
-                    <a type="submit" href="/register/logout" class="waves-effect waves-dark btn white black-text">
-                        <b>Logout</b>
-                    </a>-->
-                {% else %}
-                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                        <b>Sign In</b>
-                    </a>
-                {% endif %}
-            </ul>
-            
+            </a>            
         </div>
     </nav>
     <!-- for small screen menu -->
@@ -125,19 +109,31 @@
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <div class="container">
-            {% if user.is_authenticated %}
-                <li><a href="">Hello,{{user}}</a></li><br/>
-                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                    <b>Logout</b>
-                </a>
-            {% else %}
-                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            {% endif %}
-        </div>
+        
+        <li>
+            <div class="container" style="width: 85%;">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li><a href="/republic_ktm_4912">Admin</a></li>
+                    {% endif%}
+                    <li>
+                        <a href="/history/" style="">History</a>
+                    </li>
+                    <div>
+                        <li><a>Hello,{{user}}</a></li><br/>
+                        <li>
+                            <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text"> <b>Logout</b></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <li>
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+        </li>
     </ul>
 
     {% block content %}
@@ -180,16 +176,16 @@
                                 <div class="input-field">
                                     <i class="material-icons prefix">key</i>
                                     <input type="password" id="password" name="password" required>
-                                    <label for="password">Password</label>
+                                    <label for="email">Password</label>
                                 </div>
                                 <div class="input-field">
                                     <p>
                                         <label>
                                             <input type="checkbox">
                                             <span>Remember Me</span>
-                                            <a href="/register/password_reset/">forget password</a>
                                         </label>
                                     </p>
+                                    <a href="/register/password_reset/">forget password</a>
                                 </div>
                                 <div class="input-field center">
                                     <button type="submit" class="btn btn-primary black">Submit</button>

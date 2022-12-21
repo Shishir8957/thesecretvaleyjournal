@@ -11,29 +11,6 @@ import string
 def error404(request):
     return render(request,'404.html')
 
-# def subscribe(request):
-#     if request.method == 'POST':
-#         email = request.POST.get('email')
-
-#         if subscriptionEmail.objects.filter(email=email).exists():
-#             messages.info(request,'This email alreday exists')
-#             return redirect('subscribe')    
-
-#         elif check(email) == True:
-#             subscribe=subscriptionEmail(email=email)
-#             subscribe.save()
-#             send_mail('Subscription', 'You will receive notification of all the blog posted', 'royell4912@gmail.com', [email],fail_silently=False)
-#             color = True
-#             messages.info(request,'Your email is submitted')
-#             print(color)
-#             return render(request, 'subscribe.html',{'colors':color})
-#             #return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
-#         else:
-#             messages.info(request,'Enter the valid email')
-#             return redirect('subscribe')  
-#     else:
-#         return render(request, 'subscribe.html')
-
 
 def register(request):
     if request.method == 'POST':

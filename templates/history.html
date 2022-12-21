@@ -151,11 +151,11 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b><i class="bi bi-person-circle left"></i>{{user}}</b></a>
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
                         <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
@@ -172,19 +172,31 @@
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <div class="container">
-            {% if user.is_authenticated %}
-                <li><a href="">Hello,{{user}}</a></li><br/>
-                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                    <b>Logout</b>
-                </a>
-            {% else %}
-                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            {% endif %}
-        </div>
+        
+        <li>
+            <div class="container" style="width: 85%;">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li><a href="/republic_ktm_4912">Admin</a></li>
+                    {% endif%}
+                    <li>
+                        <a href="/history/" style="">History</a>
+                    </li>
+                    <div>
+                        <li><a>Hello,{{user}}</a></li><br/>
+                        <li>
+                            <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text"> <b>Logout</b></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <li>
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+        </li>
     </ul>
     <!-- header -->
     <header>
@@ -216,7 +228,17 @@
                             <h5 class="card-title truncate" id="cardTitle">{{blog.post.title}}</h5>
                             <p class="card-text truncate2">{{blog.post.discription}} </p>
                             <a href="/blog/{{blog.post.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                            <a href="/history/delete/{{blog.post.sno}}" class="red-text"><i class="bi bi-file-x-fill right"></i></a>
+                            <a class="modal-trigger" href="#modal2"><i class="bi bi-trash-fill right" style="color:red;font-size:1.5rem;"></i></a>
+                            <div id="modal2" class="modal" style="height:auto;">
+                                <div class="modal-content" style="border-bottom: 0px">
+                                    <h3 style="color:black;">Delete this comment</h3>
+                                    <p>{{blog.post.title}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                                    <a href="/history/delete/{{blog.post.sno}}" class="modal-close waves-effect waves-red btn-flat">Delete</a>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -277,6 +299,7 @@
             $(".sidenav").sidenav();
             $('.tooltipped').tooltip();
             $('.dropdown-trigger').dropdown();
+            $('.modal').modal();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {

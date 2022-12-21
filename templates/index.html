@@ -276,25 +276,37 @@
             </ul>
             
         </div>
-    </nav>
+    </nav> 
     <!-- for small screen menu -->
     <ul class="sidenav grey lighten-2" id="mobile-menu">
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/republic_ktm_4912">Admin</a></li>
-        <div class="container">
-            {% if user.is_authenticated %}
-                <li><a href="">Hello,{{user}}</a></li><br/>
-                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                    <b>Logout</b>
-                </a>
-            {% else %}
-                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            {% endif %}
-        </div>
+        
+        <li>
+            <div class="container" style="width: 85%;">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li><a href="/republic_ktm_4912">Admin</a></li>
+                    {% endif%}
+                    <li>
+                        <a href="/history/" style="">History</a>
+                    </li>
+                    <div>
+                        <li><a>Hello,{{user}}</a></li><br/>
+                        <li>
+                            <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text"> <b>Logout</b></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <li>
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+        </li>
     </ul>
           
     <!-- header -->

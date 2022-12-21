@@ -60,7 +60,6 @@ def subscribe(request):
             send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
             color = True
             messages.info(request,'Your email is submitted')
-            print(color)
             return render(request, 'subscribe.html',{'colors':color})
             #return HttpResponse('<div class="center" style="text-align: center; margin: 17rem;">your form submitted <br> <button href="/" style="margin:1rem;"> Return to home </button></div>')
         else:
@@ -74,19 +73,19 @@ def unsubscribe(request,slug):
     messages.info(request,'unsubscribe successfully')
     return redirect('subscribe')  
     
-def invitelink(request):
-    mails = subscriptionEmail.objects.all()
-    for mail in mails:
-        print(mail)
-        data={
-            'email': mail,
-            'message': 'New Blog is there'
-        }
-        message= '''
-            New message: {}
-        '''.format(data['message'],data['email'])
-        send_mail('test email', message, 'royell4912@gmail.com', ['kbro1415@gmail.com'])
-    return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="/blog" style="margin:1rem;" type="submit"> Return to home </a></div>')
+# def invitelink(request):
+#     mails = subscriptionEmail.objects.all()
+#     for mail in mails:
+#         print(mail)
+#         data={
+#             'email': mail,
+#             'message': 'New Blog is there'
+#         }
+#         message= '''
+#             New message: {}
+#         '''.format(data['message'],data['email'])
+#         send_mail('test email', message, 'royell4912@gmail.com', ['kbro1415@gmail.com'])
+#     return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="/blog" style="margin:1rem;" type="submit"> Return to home </a></div>')
 
 def contactForm(request):
     if request.method == "POST":

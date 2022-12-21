@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>homepage</title>
-    <link rel="shortcut icon" href={% static './image/icon.png'%} type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static './image/icon.png'%}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'css/style_all_blog.css' %}">
     <!-- bootstrap -->
 
@@ -46,11 +46,16 @@
             padding: 0.4rem;
             border-radius: 2px;
         }
+        @media screen and (max-width: 700px){
+            nav .brand-logo{
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- nav  -->
+    <!-- nav  --> 
     <nav class="nav-wrapper">
         <div class="container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
@@ -71,11 +76,11 @@
                         <b>Logout</b>
                     </a>-->
                     <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b>{{user}}</b></a>
+                    <a class='dropdown-trigger btn waves-effect waves-purple btn white black-text' href='#' data-target='dropdown1'><b><i class="bi bi-person-circle left"></i>{{user}}</b></a>
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
-                        <li style="min-height:30px;"><a class='center' href="/history/{{user.id}}" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
+                        <li style="min-height:30px;"><a class='center' href="/history/" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
                         <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
@@ -92,24 +97,36 @@
         <li><a href="/blog">Blog</a></li>
         <li><a href="/service">Services</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <div class="container">
-            {% if user.is_authenticated %}
-                <li><a href="">Hello,{{user}}</a></li><br/>
-                <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text">
-                    <b>Logout</b>
-                </a>
-            {% else %}
-                <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
-                    <b>Sign In</b>
-                </a>
-            {% endif %}
-        </div>
+        
+        <li>
+            <div class="container" style="width: 85%;">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li><a href="/republic_ktm_4912">Admin</a></li>
+                    {% endif%}
+                    <li>
+                        <a href="/history/" style="">History</a>
+                    </li>
+                    <div>
+                        <li><a>Hello,{{user}}</a></li><br/>
+                        <li>
+                            <a type="submit" href="/register/logout" class="waves-effect waves-purple btn white black-text"> <b>Logout</b></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <li>
+                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                            <b>Sign In</b>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+        </li>
     </ul>
     
 
     <section>
-        <div class="container" style="height: 27rem; background-color:#000c; border-radius: 6px; ">
+        <div class="container" style="height: auto; background-color:#000c; border-radius: 6px; ">
             <h2 style="display: flex; font-size: 2.5rem; align-items: center; justify-content: center; margin:0px; padding: 3rem; color:white;">Subscribe Here</h2>
             {% for message in messages %}
                 {% if colors == True %}
@@ -130,7 +147,7 @@
                 </div>
             </form>    
                 
-            <p style="color:rgb(254, 254, 254);text-align: center; padding-top: 3rem;" style="width:10rem;">
+            <p style="color:rgb(254, 254, 254);text-align: center; padding: 3rem 0;" style="width:10rem;">
                 <i class="bi bi-exclamation-circle-fill" style="font-size:1.5rem;"></i>
                 &nbsp You will get update on your email if new blog is publised
             </p>
