@@ -69,6 +69,11 @@ def subscribe(request):
     else:
         return render(request, 'subscribe.html')
 
+def unsubscribe(request,slug):
+    subscriptionEmail.objects.get(email=slug).delete()
+    messages.info(request,'unsubscribe successfully')
+    return redirect('subscribe')  
+    
 def invitelink(request):
     mails = subscriptionEmail.objects.all()
     for mail in mails:

@@ -5,6 +5,7 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('service/',views.service,name='service'),
     path('subscribe/',views.subscribe,name='subscribe'),
+    path('unsubscribe/<str:slug>',views.unsubscribe,name='unsubscribe'),
     path('invitelinklest/',views.invitelinklest,name='invitelinklest'),
     path('invitelink/',views.invitelink,name='invitelink'),
     path('contact/',views.contact,name='contact'),
