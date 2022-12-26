@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'social_django',
     'history',
     'django.contrib.humanize',
-    'dbbackup',
 ]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
