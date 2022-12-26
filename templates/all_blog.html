@@ -54,11 +54,11 @@
 
         header {
             {% if tag %}
-                background: url("{% static '../media/img/background3.jpg' %}");
+                background: url("{% static '../media/img/background4.jpg' %}");
             {% elif name %}
                 background: url("{% static '../media/img/background2.jpg' %}");
             {% else %}
-                background: url("{% static '../media/img/background1.jpg' %}");
+                background: url("{% static '../media/img/market.jpg' %}");
             {% endif %}
             background-size: cover;
             background-position: center;
@@ -86,7 +86,7 @@
             position: unset;
             max-width: 50%;
             height: 42px;
-            border: 4px solid #495862;
+            border: 4px solid #263238;
             padding: 0px 10px;
             border-radius: 50px;
             background-color: #eaeaea;
@@ -222,7 +222,7 @@
     <!-- tags -->
     <div class="row center">
         {% for tag in tags %}
-            <div class="col-6 col-md-4" style="margin:2rem 0 0 0; ">
+            <div class="col-6 col-md-3 center" style="margin:2rem 0 0 0; ">
                 <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn blue-grey darken-4 white-text" style="width:80%; position: unset;">{{tag.title}}</a>
             </div>
         {% endfor%}
@@ -251,15 +251,13 @@
             {% for blog in blog %}
                 {% if blog.publish == True %}
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card hoverable">
-                            <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
-                                <img src="/media/{{blog.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
-                            </div>
+                        <div class="card hoverable" style="width: auto;">
+                            <img class="card-img-top" src="/media/{{blog.display_img}}" alt="Card image cap">
                             <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                            <a class="right" style="  color: #4d4b4b; padding: 8px 0 0 0; font-size: 10pt;">{{blog.views}} views</a>
+                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                <p class="card-text truncate2">{{blog.discription}} </p>
+                                <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                <a class="right" style="  color: #4d4b4b; padding: 8px 0 0 0; font-size: 10pt;">{{blog.views}} views</a>
                             </div>
                         </div>
                     </div>

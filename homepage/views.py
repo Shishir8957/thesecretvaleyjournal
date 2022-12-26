@@ -54,7 +54,7 @@ def subscribe(request):
         elif check(email) == True:
             subscribe=subscriptionEmail(email=email)
             subscribe.save()
-            subject = 'test subject'
+            subject = 'Thank you for subscribing'
             html_message = render_to_string('contact_form.html', {'email': email})
             plain_message = strip_tags(html_message)
             send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
