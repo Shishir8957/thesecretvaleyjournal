@@ -34,6 +34,9 @@ urlpatterns = [
     # path('falora_editor/',include('froala_editor.urls')),
 ]
 
+handler404 = "homepage.views.handler404"
+handler500 = "homepage.views.handler500"
+
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

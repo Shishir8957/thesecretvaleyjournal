@@ -24,8 +24,12 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
-        * {
-            font-family: sans-serif;
+        @import url("https://fonts.googleapis.com/css?family=Fira+Sans");
+        /*Variables*/
+        .left-section .inner-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         }
 
         nav {
@@ -59,6 +63,7 @@
             background-size: cover;
             background-position: center;
             min-height: 200px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
         .fr-fil.fr-dib,.fr-fic.fr-dii{
@@ -223,7 +228,7 @@
                         <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
                 {% else %}
-                    <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                    <a type="submit" href="/register/?next=/blog/{{content.slug}}" class="waves-effect waves-purple btn white black-text">
                         <b>Sign In</b>
                     </a>
                 {% endif %}
@@ -254,7 +259,7 @@
                     </div>
                     {% else %}
                     <li>
-                        <a type="submit" href="/register" class="waves-effect waves-purple btn white black-text">
+                        <a type="submit" href="/register/?next=/blog/{{content.slug}}" class="waves-effect waves-purple btn white black-text">
                             <b>Sign In</b>
                         </a>
                     </li>
@@ -569,7 +574,7 @@
             <hr>
         </div>
         <div class="wrapper" style="overflow-x: scroll;overflow-y: hidden;">
-            <div class="item" style="height: auto; width:20rem; background-color: transparent; margin: 1px; display:flex;">
+            <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px; display:flex;">
                 {% for blog in content.related_blog.all %}
                     {% if blog.publish == True %}
                         <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">

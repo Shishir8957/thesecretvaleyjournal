@@ -74,8 +74,8 @@ def login(request):
         return render(request,'account.html')
         
 def logout(request):
+    auth.logout(request)
     if request.method == 'POST':
-        auth.logout(request)
         if 'next' in request.POST:
             return redirect(request.POST.get('next'))
     return redirect('register')

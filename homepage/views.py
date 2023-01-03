@@ -18,6 +18,14 @@ def check(s):
     else:
         return False
 
+def handler404(request,exception):
+    error = "404"
+    return render(request, '404.html',{'error':error})
+
+def handler500(request):
+    error = "500"
+    return render(request, '404.html',{'error':error})
+
 # Create your views here.
 def index(request):
     background = list(headerImg.objects.all())
