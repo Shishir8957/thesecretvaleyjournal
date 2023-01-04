@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'homepage',
     'social_django',
     'history',
+    'privacy_policy',
     'django.contrib.humanize',
 ]
 

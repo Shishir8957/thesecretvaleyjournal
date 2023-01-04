@@ -136,6 +136,10 @@
             margin-left: auto;
             margin-right: auto;
         }
+        ::selection{
+            background-color: #000000bf;
+            color: white;
+        }
         @media screen and (max-width: 900px){
             .bodycontainer{
                 width:90%;
@@ -281,7 +285,7 @@
     <!-- body --> 
     <div class="container bodycontainer">
         <!-- blog title --> 
-        <div class="" style="padding: 1rem 0vh;">
+        <div class="center" style="padding: 1rem 0vh;">
             <div class="d-flex justify-content-between">
                 <div class="p-2">
                     <a>{{content.blog_catagory.title|upper}}</a><br><br>
@@ -292,7 +296,7 @@
                     {% endif %}
                 </div>
             </div>
-            <h1 class="mainHeader">{{content.title}}</h1><br>
+            <h1 class="mainHeader" style="line-height: 133%;">{{content.title}}</h1><br>
             <p class="titleDiscription"> {{content.discription}} </p>
         </div>
         <!-- auther body --> 

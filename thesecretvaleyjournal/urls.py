@@ -31,6 +31,7 @@ urlpatterns = [
     path('blog/',include('bloggingPage.urls')),
     path('subscribe/',include('subscribe.urls')),
     path('history/',include('history.urls')),
+    path('privacy_policy/',include('privacy_policy.urls')),
     # path('falora_editor/',include('froala_editor.urls')),
 ]
 
