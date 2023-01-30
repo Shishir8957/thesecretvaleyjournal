@@ -120,13 +120,19 @@
             border-radius: 2px;
         }
         .tag_width{
-            width:80%;
+            width: 100%;
             position: unset;
+        }
+        .tag_wrapper{
+            width: 80%;
         }
 
         @media screen and (max-width: 700px) {
             nav .brand-logo {
                 font-size: 1.5rem;
+            }
+            .tag_wrapper{
+                width: 100%;
             }
         }
         @media screen and (max-width: 500px){
@@ -137,6 +143,9 @@
                 min-height: 11rem;
             }
             .tag_width{
+                width: 100%;
+            }
+            .tag_wrapper{
                 width: 100%;
             }
         }
@@ -228,12 +237,14 @@
     </header>
 
     <!-- tags -->
-    <div class="row center">
-        {% for tag in tags %}
-            <div class="col-6 col-md-3  col-lg-2 center" style="margin:2rem 0 0 0; ">
-                <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn blue-grey darken-4 white-text tag_width" >{{tag.title}}</a>
-            </div>
-        {% endfor%}
+    <div class=" container center tag_wrapper" style="width: 100%;">
+        <div class="row center tags_width">
+            {% for tag in tags %}
+                <div class="col-6 col-md-3  col-lg-2 center" style="margin:2rem 0 0 0; ">
+                    <a href="/blog/tags/{{tag.slug}}/" type="submit" class="waves-effect waves-light btn black darken-4 white-text tag_width" >{{tag.title}}</a>
+                </div>
+            {% endfor%}
+        </div>
     </div>
     
     {% if search %}

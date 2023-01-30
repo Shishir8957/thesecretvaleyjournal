@@ -48,7 +48,6 @@
         background: url("/media/{{background.img}}");
         background-size: cover;
         background-position: center;
-        min-height: 650px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     
@@ -93,9 +92,10 @@
     .card {
         position: unset;
         padding: 1rem;
-        margin-top: 2rem;
+        margin: 2rem 0;
         border-radius: 4px;
-        background: rgba(13, 12, 12, 0.54);
+        {% comment %} background: rgba(13, 12, 12, 0.54); {% endcomment %}
+        background: rgba(255, 255, 255, 0.04);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(6.9px);
         -webkit-backdrop-filter: blur(6.9px);
@@ -107,7 +107,7 @@
     }
     
     .text-white {
-        margin: 12rem 0 1.68rem 0;
+        margin-top: 30%;
         font-size: 3.5rem;
         text-shadow: 1px 1px #00000094;
     }
@@ -164,11 +164,17 @@
         border-radius: 2px;
     }
     .left_header{
-        max-width: 90%;
+        max-width: 100%;
+    }
+    .nav_container{
+        width: 82%;
+    }
+    .row{
+        width:82%;
     }
     @media screen and (max-width: 993px) {
         .text-white {
-            margin: 12rem 0 1.68rem 0;
+            margin-top: 30%;
             /* font-size: 2.5rem; */
             text-shadow: 1px 1px #00000094;
             text-align: center;
@@ -183,9 +189,6 @@
         .card .card-title {
             font-size: 1.3rem;
         }
-        .row {
-            padding-top: 2rem;
-        }
         .truncate3{
             max-width: 22rem;
             overflow: hidden;
@@ -196,11 +199,7 @@
         }
     }
     
-    @media screen and (max-width: 700px) {
-        header {
-            min-height: 750px;
-        }
-    
+    @media screen and (max-width: 700px) {    
         nav .brand-logo {
             font-size: 1.5rem;
         }
@@ -232,8 +231,11 @@
         h1 {
             font-size: 3.2rem;
         }
-        .container{
-            width: 100%;
+        .nav_container{
+            width:100%;
+        }
+        .row{
+            width:100%;
         }
     }
 </style>
@@ -242,7 +244,7 @@
     
     <!-- nav  --> 
     <nav class="nav-wrapper" style="z-index: 1;">
-        <div class="container">
+        <div class="container nav_container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
@@ -313,8 +315,8 @@
     <header>
         <div class="row">
             <!-- header left part textarea -->
-            <div class="col s12 m7 l6 offset-l1">
-                <div style="position: center" class="container">
+            <div class="col s12 m7 l6">
+                <div style="position: center">
                     <h1 class="text-white">
                         Knowledge is
                         <a style="color: #d88eff; text-shadow: 0px 0px black">power</a>.<br />
@@ -322,12 +324,12 @@
                         <a style="color: #d88eff; text-shadow: 0px 0px black">liberating</a>.
                     </h1>
                     <div class="suscribe" style="transition: 1s ease">
-                        <a href="/subscribe/" type="button" class="btn btn-primary black btn-large"><b>Subscribe</b></a>
+                        <a href="/subscribe/" class="tooltipped btn btn-primary black btn-large" data-position="right" data-tooltip="For daily blog"><b>Subscribe</b></a>
                     </div>
                 </div>
             </div>
             <!-- header right part card -->
-            <div class="col s12 m7 l4">
+            <div class="col s12 m7 l4 offset-l1">
                 <div class="container left_header">
                     <div class="card" style="position: unset;">
                         <div class="comtainer">
@@ -445,6 +447,7 @@
             $('.tooltipped').tooltip();
             $('.materialboxed').materialbox();
             $('.dropdown-trigger').dropdown();
+            $('.tooltipped').tooltip();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {
