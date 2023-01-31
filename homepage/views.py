@@ -9,6 +9,7 @@ from .models import Contact,subscriptionEmail,headerImg,FeatureArticle
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import re
+from blogingPdf.models import BookPdf,Sem
 
 
 def check(s):
@@ -29,11 +30,12 @@ def handler500(request):
 # Create your views here.
 def index(request):
     background = list(headerImg.objects.all())
+    pdf = Sem.objects.all()
     img = random.choice(background)
     blogchatagory = BlogCatagory.objects.all()
     feature_article = FeatureArticle.objects.all()
     blogfield = blogField.objects.all().order_by('-date')
-    return render(request, 'index.html',{'blog' : blogfield,'background':img,'catagory':blogchatagory,'feature_article':feature_article})
+    return render(request, 'index.html',{'blog' : blogfield,'background':img,'catagory':blogchatagory,'feature_article':feature_article,'pdf':pdf})
 
 def service(request):
     return render(request, 'service.html')

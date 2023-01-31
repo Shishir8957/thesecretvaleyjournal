@@ -95,7 +95,7 @@
         margin: 2rem 0;
         border-radius: 4px;
         {% comment %} background: rgba(13, 12, 12, 0.54); {% endcomment %}
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.09);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(6.9px);
         -webkit-backdrop-filter: blur(6.9px);
@@ -171,6 +171,19 @@
     }
     .row{
         width:82%;
+    }
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 5px;
+        margin-top: 0.5rem;
+    }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(155, 155, 155, 0.5);
+        border-radius: 20px;
+        border: transparent;
     }
     @media screen and (max-width: 993px) {
         .text-white {
@@ -358,7 +371,6 @@
         </div>
     </header>
 
-
     <!-- latest news -->
     <div class="container">
         {% for cat in catagory %}
@@ -398,6 +410,29 @@
         {% endfor %}
     </div> 
     {% comment %} <div class="center"><iframe frameborder=1 height=100 width=70% src="https://weakstreams.com/streams/10230541" allowfullscreen scrolling=no allowtransparency></iframe></div> {% endcomment %}
+    <!--Pdf View-->
+    <div>
+        <div class="container center">
+            <h1 href="/blog" style=";padding-bottom: 6px;">Engineering</h1>
+            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+        </div>
+        <br>
+        <div class="container wrapper" style="min-height: fit-content;">
+            {% for pdf in pdf %}
+                <a href="/engineering_pdf/{{pdf.sem}}" style="color:black">
+                    <div class="card bg-c-blue order-card hoverable" style="width: 15rem; margin:0rem 0.4rem; height:100%;background-color: {{pdf.color}};">
+                        <div class="card-block center">
+                            <div style="display:flex;justify-content:space-evenly">
+                                <h6 class="m-b-20">{{pdf.BachelorField}}</h6>
+                            </div>
+                            <h2 class="text-right" style="color:black;display: flex;justify-content: center;align-items: center;"><i class="bi bi-book"></i></h2>
+                            <h6>{{pdf.sem}}</h6>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
     <br>
     <!-- footer -->
     <footer class="page-footer black darken-3">
