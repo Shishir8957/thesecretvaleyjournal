@@ -172,19 +172,6 @@
     .row{
         width:82%;
     }
-    ::-webkit-scrollbar {
-        width: 9px;
-        height: 5px;
-        margin-top: 0.5rem;
-    }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-      ::-webkit-scrollbar-thumb {
-        background-color: rgba(155, 155, 155, 0.5);
-        border-radius: 20px;
-        border: transparent;
-    }
     @media screen and (max-width: 993px) {
         .text-white {
             margin-top: 30%;
@@ -377,7 +364,7 @@
             {% if cat.publish == True %}
                 <div class="container center">
                     <h1 href="/blog" style=";padding-bottom: 6px;">{{cat.title}}</h1>
-                    <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+                    <hr style="position:unset;width: 60%; height: 2px; margin: 0rem auto;">
                 </div>
                 <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
                 <div class="wrapper" style="min-height: fit-content;">
@@ -414,7 +401,7 @@
     <div>
         <div class="container center">
             <h1 href="/blog" style=";padding-bottom: 6px;">Engineering</h1>
-            <hr style="position:unset;width: 60%; height:0.3vh; margin: 0rem auto;">
+            <hr style="position:unset;width: 60%; height: 2px; margin: 0rem auto;">
         </div>
         <br>
         <div class="container wrapper" style="min-height: fit-content;">

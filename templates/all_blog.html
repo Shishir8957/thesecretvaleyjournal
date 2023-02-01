@@ -249,11 +249,11 @@
     
     {% if search %}
         <h4 style="text-align: center; color:black; overflow: hidden; ">{{search}}</h4>
-        <hr style="position:unset;width: 30%; height:0.3vh; margin: 0rem auto;">
+        <hr style="position:unset;width: 30%; height:0.2px; margin: 0rem auto;">
     {%endif%}
     <!-- {% if name %}
         <h3 style="text-align: center; color:black;">{{name}}</h3>
-        <hr style="position:unset;width: 30%; height:0.3vh; margin: 0rem auto;">
+        <hr style="position:unset;width: 30%; height:0.2px; margin: 0rem auto;">
     {% endif %} -->
     
     <!-- Search box-->
@@ -266,7 +266,7 @@
 
     <!-- blog body -->
     <div class="container" style="width:100%; margin-top:3rem;">
-        <div class="row" style="width: 80%; margin: auto;">
+        <div class="row" style="width: 95%; margin: auto;">
             {% for blog in blog %}
                 {% if blog.publish == True %}
                     <div class="col-12 col-md-6 col-lg-4">
