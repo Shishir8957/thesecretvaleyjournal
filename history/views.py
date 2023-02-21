@@ -3,13 +3,14 @@ from .models import History,likePost
 from bloggingPage.models import *
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages 
 
 # Create your views here.
+@login_required(login_url='/register')
 def history(request):
     if request.user.is_authenticated:
-        post = History.objects.filter(user=request.user.id).order_by('-timestamp')
+        user = request.user
+        post = History.objects.filter(user__username=user.username).order_by('-timestamp')
         return render(request,'history.html',{'blog':post})
     else:
         return redirect('/register/signin')

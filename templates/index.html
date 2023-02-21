@@ -94,10 +94,9 @@
         padding: 1rem;
         margin: 2rem 0;
         border-radius: 4px;
-        {% comment %} background: rgba(13, 12, 12, 0.54); {% endcomment %}
-        background: rgba(255, 255, 255, 0.09);
+        background: rgba(13, 12, 12, 0.54);
+        {% comment %} background: rgba(255, 255, 255, 0.09); {% endcomment %}
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(6.9px);
         -webkit-backdrop-filter: blur(6.9px);
     }
     #cardTitle{
@@ -172,9 +171,12 @@
     .row{
         width:82%;
     }
+    h5{
+        line-height: normal;
+    }
     @media screen and (max-width: 993px) {
         .text-white {
-            margin-top: 30%;
+            margin-top: 10%;
             /* font-size: 2.5rem; */
             text-shadow: 1px 1px #00000094;
             text-align: center;
@@ -267,6 +269,10 @@
  
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content' >
+                        {% if user.is_superuser %}
+                            <li style="min-height:30px;"><a class='modal-trigger center' href="#modal1" style="padding:0; color:black; height:30px;"><b>Daily News</b></a></li>
+                            <li style="min-height:30px;"><a class='modal-trigger center' href="#modal" style="padding:0; color:black; height:30px;"><b>Invite</b></a></li>
+                        {% endif %}
                         <li style="min-height:30px;"><a class='center' href="/history/" style="padding:0; color:black; height:30px;"><b>History</b></a></li>
                         <li style="min-height:30px;"><a class='center' href="/register/logout" style="padding:0; color:red; height:30px;"><b>Logout</b></a></li>
                     </ul>
@@ -275,6 +281,26 @@
                         <b>Sign In</b>
                     </a>
                 {% endif %}
+                <!-- Modal Structure -->
+                <div id="modal" class="modal" style="height:auto;">
+                    <div class="modal-content" style="border-bottom: 0px">
+                        <h5 class="black-text">Instant Invitation</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Close</a>
+                        <a href="/invitelinklest/" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                    </div>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal" style="height:auto;">
+                    <div class="modal-content" style="border-bottom: 0px">
+                        <h5 class="black-text">Instant Invitation For Daily News</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Close</a>
+                        <a href="/daily_news/invite/" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                    </div>
+                </div>
             </ul>
             
         </div>
@@ -290,6 +316,8 @@
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                         <li><a href="/republic_ktm_4912">Admin</a></li>
+                        <li><a class='modal-trigger' href="/invitelinklest/">Invite</a></li>
+                        <li><a href="/daily_news/invite/" >Daily News</a></li>
                     {% endif%}
                     <li>
                         <a href="/history/" style="">History</a>
@@ -340,7 +368,7 @@
                         {% for blog in feature_article %}
                             <div>
                                 <div class="card-image" style="position: unset">
-                                    <img src="/media/{{blog.feature_article.display_img}}" style="position: unset" />
+                                    <img src="/media/{{blog.feature_article.display_img}}" style="position: unset" alt="{{blog.feature_article.title}}" />
                                 </div>
                                 <span class="card-title truncate">{{blog.feature_article.title}}</span>
                                 <div class="card-content">
@@ -364,7 +392,7 @@
             {% if cat.publish == True %}
                 <div class="container center">
                     <h1 href="/blog" style=";padding-bottom: 6px;">{{cat.title}}</h1>
-                    <hr style="position:unset;width: 60%; height: 2px; margin: 0rem auto;">
+                    <hr style="position:unset;width: 50%; height: 2px; margin: 0rem auto;">
                 </div>
                 <a href="/blog" style="color:#390084; display: flex; justify-content: right; margin: 0rem 2rem;">see all</a>
                 <div class="wrapper" style="min-height: fit-content;">
@@ -379,7 +407,7 @@
                                                     <div class="center" style="color:red;"><b>Not published yet</b></div>
                                                 {% endif %}
                                             {% endif %}
-                                            <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}">
+                                            <img style="height: 11.5rem; border-radius: 2px; position:unset;" src="media/{{blog.display_img}}" alt="{{blog.title}}">
                                         </div>
                                         <div class="card-body">
                                         <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
@@ -401,13 +429,13 @@
     <div>
         <div class="container center">
             <h1 href="/blog" style=";padding-bottom: 6px;">Engineering</h1>
-            <hr style="position:unset;width: 60%; height: 2px; margin: 0rem auto;">
+            <hr style="position:unset;width: 50%; height: 2px; margin: 0rem auto;">
         </div>
         <br>
-        <div class="container wrapper" style="min-height: fit-content;">
+        <div class="container wrapper" style="min-height: fit-content;height:35vh;">
             {% for pdf in pdf %}
                 <a href="/engineering_pdf/{{pdf.sem}}" style="color:black">
-                    <div class="card bg-c-blue order-card hoverable" style="width: 15rem; margin:0rem 0.4rem; height:100%;background-color: {{pdf.color}};">
+                    <div class="card bg-c-blue order-card hoverable" style="width: 15rem; margin:0rem 1.4rem; height:90%;background-color: {{pdf.color}};">
                         <div class="card-block center">
                             <div style="display:flex;justify-content:space-evenly">
                                 <h6 class="m-b-20">{{pdf.BachelorField}}</h6>
@@ -470,6 +498,7 @@
             $('.materialboxed').materialbox();
             $('.dropdown-trigger').dropdown();
             $('.tooltipped').tooltip();
+            $('.modal').modal();
         });
       //$(window).on('scroll',function () {
       //    if ($(window).scrollTop()) {

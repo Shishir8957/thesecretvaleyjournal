@@ -50,7 +50,7 @@ def activateUser(request,slug):
             user.save();
             randomString.objects.filter(random=slug).delete()
             messages.info(request,'Enter your credientials')
-            return redirect('register')
+            return render(request,'account.html',{'color':True})
     else:
         messages.info(request,'link no longer valid')
     return redirect('register')
@@ -60,7 +60,12 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(username=username, password=password)
+        try:
+            userTry = User.objects.get(username=username)
+        except:
+            userTry = User.objects.get(email=username)
+            
+        user = auth.authenticate(username=userTry.username, password=password)
         
         if user is not None:
             auth.login(request, user)
@@ -71,7 +76,7 @@ def login(request):
             messages.info(request,'Invalid credentials')
             return redirect('login')   
     else:    
-        return render(request,'account.html')
+        return redirect('/register/')
         
 def logout(request):
     auth.logout(request)

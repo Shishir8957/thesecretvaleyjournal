@@ -58,7 +58,7 @@
             {% elif name %}
                 background: url("{% static '../media/img/background2.jpg' %}");
             {% else %}
-                background: url("{% static '../media/img/market.jpg' %}");
+                background: url("https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80");
             {% endif %}
             background-size: cover;
             background-position: center;
@@ -87,7 +87,7 @@
             position: unset;
             max-width: 50%;
             height: 42px;
-            border: 4px solid #263238;
+            border: 2px solid #263238;
             padding: 0px 10px;
             border-radius: 50px;
             background-color: #eaeaea;
@@ -126,6 +126,9 @@
         .tag_wrapper{
             width: 80%;
         }
+        .nav_container{
+            width: 82%;
+        }
 
         @media screen and (max-width: 700px) {
             nav .brand-logo {
@@ -155,7 +158,7 @@
 <body>
     <!-- nav  --> 
     <nav class="nav-wrapper">
-        <div class="container">
+        <div class="container nav_container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
@@ -248,7 +251,7 @@
     </div>
     
     {% if search %}
-        <h4 style="text-align: center; color:black; overflow: hidden; ">{{search}}</h4>
+        <h4 style="text-align: center; color:black; overflow: hidden; line-height:normal;">{{search}}</h4>
         <hr style="position:unset;width: 30%; height:0.2px; margin: 0rem auto;">
     {%endif%}
     <!-- {% if name %}
@@ -271,9 +274,10 @@
                 {% if blog.publish == True %}
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card hoverable" style="width: auto;">
-                            <img class="card-img-top" src="/media/{{blog.display_img}}" alt="Card image cap">
+                            <div class="" style="height: 14.5rem; background-image: url(/media/{{blog.display_img}});background-position: center;background-size: cover;background-repeat:none;"></div>
+                            {% comment %} <img class="card-img-top" src="/media/{{blog.display_img}}" alt="Card image cap"> {% endcomment %}
                             <div class="card-body">
-                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                <h5 class="card-title truncate" id="cardTitle" style="line-height: normal;">{{blog.title}}</h5>
                                 <p class="card-text truncate2">{{blog.discription}} </p>
                                 <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
                                 <a class="right" style="  color: #4d4b4b; padding: 8px 0 0 0; font-size: 10pt;">{{blog.views}} views</a>

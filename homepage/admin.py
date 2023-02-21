@@ -8,7 +8,7 @@ class ContactUsAdmin(admin.ModelAdmin):
     def less_message(sef,obj):
         return obj.message[:100]
 class headerImgAdmin(admin.ModelAdmin):
-    list_display = ('name','images','hide')
+    list_display = ('name','images','published')
     def images(self,obj):
         return format_html(f'<img src="/media/{obj.img}" style="height:55px;width:100px;" >')
 

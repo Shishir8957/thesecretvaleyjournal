@@ -29,6 +29,7 @@ urlpatterns = [
     path('',include('social_django.urls')),
     path('register/',include('register.urls')),
     path('blog/',include('bloggingPage.urls')),
+    path('daily_news/',include('morningNews.urls')),
     path('engineering_pdf/',include('blogingPdf.urls')),
     path('subscribe/',include('subscribe.urls')),
     path('history/',include('history.urls')),

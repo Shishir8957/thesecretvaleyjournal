@@ -17,7 +17,7 @@ def blog(request,slug):
     blogField.objects.filter(slug=slug).update(views=F('views')+1)
   if request.user.is_authenticated:
     user = request.user
-    if not History.objects.filter(post=post).exists():
+    if not History.objects.filter(post=post).filter(user=user).exists():
       userhistory = History.objects.create(post=post,user=user)
       userhistory.save
     for likes in likePost.objects.filter(post=post):
@@ -40,10 +40,8 @@ def search(request):
   if 'search' in request.GET:
     global search 
     search = request.GET['search']
-    print(search)
-    data = blogField.objects.filter(title__icontains=search)
+    data = blogField.objects.filter(title__icontains=search).order_by('-date')
     num=len(list(data))
-    print(num)
   else:
     data = blogField.objects.all()
   return render(request, 'all_blog.html',{'blog':data, 'search':search,'table':num})

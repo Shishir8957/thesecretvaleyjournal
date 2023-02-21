@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'history',
     'privacy_policy',
     'django.contrib.humanize',
+    'morningNews',
 ]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'

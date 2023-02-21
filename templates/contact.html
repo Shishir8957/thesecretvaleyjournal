@@ -47,15 +47,20 @@
             font-size: bold;
         }
 
+        .nav_container{
+            width: 82%;
+        }
+
         .bi{
             font-size: 2rem;
         }
 
         header {
-            background: url("{% static '../media/img/street.jpg' %}");
+            background: url("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
             background-size: cover;
             background-position: center;
             min-height: 200px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         .truncate2{
             overflow: hidden;
@@ -137,7 +142,7 @@
 <body>
     <!-- nav  --> 
     <nav class="nav-wrapper">
-        <div class="container">
+        <div class="container nav_container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>

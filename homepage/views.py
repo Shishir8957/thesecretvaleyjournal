@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import re
 from blogingPdf.models import BookPdf,Sem
+from django.contrib.auth.decorators import user_passes_test
 
 
 def check(s):
@@ -29,9 +30,12 @@ def handler500(request):
 
 # Create your views here.
 def index(request):
-    background = list(headerImg.objects.all())
+    background = list(headerImg.objects.filter(published=True))
     pdf = Sem.objects.all()
-    img = random.choice(background)
+    try:
+        img = random.choice(background)
+    except:
+        img = None
     blogchatagory = BlogCatagory.objects.all()
     feature_article = FeatureArticle.objects.all()
     blogfield = blogField.objects.all().order_by('-date')
@@ -43,6 +47,7 @@ def service(request):
 def contact(request):
     return render(request, 'contact.html') 
 
+@user_passes_test(lambda u: u.is_superuser)
 def invitelinklest(request):
     mail = subscriptionEmail.objects.all()
     for email in mail:
