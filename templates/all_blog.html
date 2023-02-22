@@ -58,11 +58,11 @@
             {% elif name %}
                 background: url("{% static '../media/img/background2.jpg' %}");
             {% else %}
-                background: url("https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80");
+                background: url("https://images.unsplash.com/photo-1521495084171-3ad639e3d525?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
             {% endif %}
             background-size: cover;
             background-position: center;
-            min-height: 200px;
+            min-height: auto;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         .truncate2{
@@ -127,7 +127,7 @@
             width: 80%;
         }
         .nav_container{
-            width: 82%;
+            width: 90%;
         }
 
         @media screen and (max-width: 700px) {
@@ -151,6 +151,9 @@
             .tag_wrapper{
                 width: 100%;
             }
+            .nav_container{
+                width:100%;
+            }
         }
     </style>
 </head>
@@ -163,6 +166,11 @@
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
+            {% if not user.is_authenticated %}
+                <a href="/subscribe/" class="sidenav-trigger" style="float:right;height: 20px;background-color: white;top: 1.2rem;line-height: 0;color: black;padding: 0.8rem;border-radius: 5rem;font-weight: 550;">Subscribe</a>
+            {% else %}
+                <a href="/blog/" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a>
+            {% endif %}
             <ul class="right hide-on-med-and-down">
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
@@ -252,7 +260,7 @@
     
     {% if search %}
         <h4 style="text-align: center; color:black; overflow: hidden; line-height:normal;">{{search}}</h4>
-        <hr style="position:unset;width: 30%; height:0.2px; margin: 0rem auto;">
+        <hr style="position:unset;width: 30%; height:2px; margin: 0rem auto;opacity:0.7;">
     {%endif%}
     <!-- {% if name %}
         <h3 style="text-align: center; color:black;">{{name}}</h3>
@@ -290,15 +298,14 @@
             {% for blog in tag.posts.all %}
                 {% if blog.publish == True %}
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card hoverable">
-                            <div class="card-img-top" style="height: 12rem; overflow: hidden; background-size: cover; background-position: center;">
-                                <img src="/media/{{blog.display_img}}" class="" alt="..." style="border-radius: 2px; width: 100%;">
-                            </div>
+                        <div class="card hoverable" style="width: auto;">
+                            <div class="" style="height: 14.5rem; background-image: url(/media/{{blog.display_img}});background-position: center;background-size: cover;background-repeat:none;"></div>
+                            {% comment %} <img class="card-img-top" src="/media/{{blog.display_img}}" alt="Card image cap"> {% endcomment %}
                             <div class="card-body">
-                            <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
-                            <p class="card-text truncate2">{{blog.discription}} </p>
-                            <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
-                            <a class="right" style="  color: #4d4b4b; padding: 8px 0 0 0; font-size: 10pt;">{{blog.views}} views</a>
+                                <h5 class="card-title truncate" id="cardTitle" style="line-height: normal;">{{blog.title}}</h5>
+                                <p class="card-text truncate2">{{blog.discription}} </p>
+                                <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
+                                <a class="right" style="  color: #4d4b4b; padding: 8px 0 0 0; font-size: 10pt;">{{blog.views}} views</a>
                             </div>
                         </div>
                     </div>

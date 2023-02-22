@@ -61,7 +61,7 @@
             background: url("{%static './image/bg2.jpg'%}");
             background-size: cover;
             background-position: center;
-            min-height: 200px;
+            min-height: auto;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
@@ -203,6 +203,9 @@
                 position:unset;
                 color: #000000bf;
             }
+            .nav_container{
+                width:100%;
+            }
         }
     </style>
 </head>
@@ -215,6 +218,11 @@
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
+            {% if not user.is_authenticated %}
+                <a href="/subscribe/" class="sidenav-trigger" style="float:right;height: 20px;background-color: white;top: 1.2rem;line-height: 0;color: black;padding: 0.8rem;border-radius: 5rem;font-weight: 550;">Subscribe</a>
+            {% else %}
+                <a href="/blog/" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a>
+            {% endif %}
             <ul class="right hide-on-med-and-down">
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>

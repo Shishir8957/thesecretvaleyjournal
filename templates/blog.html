@@ -24,6 +24,8 @@
     <!-- highlight.js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/google-dark.min.css">
 
+    <meta name="description" content="{{content.discription}}"></meta>
+
     <!-- Compiled and minified JavaScript -->
     <!--<script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -227,6 +229,9 @@
                 position:unset;
                 color: #000000bf;
             }
+            .nav_container{
+                width:100%;
+            }
         }
     </style>
 </head>
@@ -236,9 +241,13 @@
     <nav class="nav-wrapper">
         <div class="container nav_container">
             <a href="/" class="brand-logo">REPUBLIC KTM</a>
-            <a href="#" class="sidenav-trigger" data-target="mobile-menu">
-                <i class="bi bi-list"></i>
-            </a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-menu"><i class="bi bi-list"></i></a>
+            {% comment %} <a href="blog" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a> {% endcomment %}
+            {% if not user.is_authenticated %}
+                <a href="/subscribe/" class="sidenav-trigger" style="float:right;height: 20px;background-color: white;top: 1.2rem;line-height: 0;color: black;padding: 0.8rem;border-radius: 5rem;font-weight: 550;">Subscribe</a>
+            {% else %}
+                <a href="/blog/" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a>
+            {% endif %}
             <ul class="right hide-on-med-and-down">
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
@@ -265,8 +274,7 @@
                         <b>Sign In</b>
                     </a>
                 {% endif %}
-            </ul>
-            
+            </ul>    
         </div>
     </nav>
     <!-- for small screen menu -->
@@ -331,7 +339,7 @@
         <!-- auther body --> 
         <div class="pb-sm-2"> 
                 <hr>
-                <div class="row">
+                <div class="row" style="margin-bottom: 1rem;">
                     <div class="col-sm-auto">
                         <div class="d-flex bd-highlight mb-3">
                             <div href="" class="p-2 bd-highlight">
@@ -433,7 +441,7 @@
         <div class="container blogimg bodycontainer" >
             <div class="container center blog_img" style="width:100%;padding: 0;">
                 <img src="/media/{{content.display_img}}" alt="" style="width: 100%;">
-                <a style="color: #000000a6;"><i>fig:{{content.display_img_caption}}</i></a>
+                <figurecaption style="color: #000000a6;"><i>fig:{{content.display_img_caption}}</i></figurecaption>
                 <br><br>
             </div>
             <div class="wrapper" style="min-width:100%;">
@@ -603,20 +611,20 @@
     <!-- recomendation card -->
     <div class="container">
         <div class="container center" style="width: 100%;">
-            <h1 style="font-size: 3.5rem;">Related Post</h1>
-            <hr>
+            <h2 style="font-size: 34pt;margin-bottom:0px;">Related Post</h2>
+            <hr class="container center" style="height:2px;;margin-bottom:0px; width:50%;opacity:0.7;">
         </div>
         <div class="wrapper" style="overflow-x: scroll;overflow-y: hidden;">
             <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px; display:flex;">
                 {% for blog in content.related_blog.all %}
                     {% if blog.publish == True %}
                         <div class="item" style="height: auto; width:20rem; background-color: transparent; margin:5px;">
-                            <div class="card" id="newsCard">
+                            <div class="card" id="newsCard" style="margin-top:1rem;">
                                 <div style="position:unset;" class="card-image" >
                                     <img style="height: 11.5rem;position:unset;" alt="" src="../media/{{blog.display_img}}">
                                 </div>
                                 <div class="card-body">
-                                <h5 class="card-title truncate" id="cardTitle">{{blog.title}}</h5>
+                                <h5 class=" truncate" id="cardTitle">{{blog.title}}</h5>
                                 <p class="card-text truncate2">{{blog.discription}} </p>
                                 <a href="/blog/{{blog.slug}}" class="btn btn-primary black" style="font-size: 1rem;">Read More</a>
                                 </div>
@@ -635,7 +643,7 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5>The secret valley journal</h5>
+                    <h5>Republic Ktm</h5>
                     <p>The things we do is not normal here</p>
                 </div>
                 <div class="col l4 offset-l2 s12">
@@ -643,7 +651,7 @@
                     <a href="/blog" style="color:white;">Blog</a><br>
                     <a href="/contact" style="color:white;">Contact</a><br>
                     <a href="/service" style="color:white;">Services</a><br>  
-                    <a href="" style="color:white;">hot news</a><br>
+                    <a href="/hotnews" style="color:white;">hot news</a><br>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Contact Us</h5>
@@ -665,7 +673,7 @@
         </div>
 
         <div class="footer-copyright black darken-4">
-            <div class="container center-align">&copy; 2022 The Secret Valley Journal</div>
+            <p class="container center-align">&copy; 2022 The Secret Valley Journal</p>
         </div>
     </footer>
 
