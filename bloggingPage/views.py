@@ -79,7 +79,7 @@ def postComment(request):
     else:
       parent = BlogComment.objects.get(sno=parentSno) 
       comment = BlogComment(comment=comment,user=user,post=post,parent=parent)
-    # comment.save()
+    comment.save()
     # messages.success(request,"comment posted successfully")
   return redirect(f"/blog/{post.slug}")
 
