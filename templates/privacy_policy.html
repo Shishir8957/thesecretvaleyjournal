@@ -219,7 +219,7 @@
                 <i class="bi bi-list"></i>
             </a>
             {% if not user.is_authenticated %}
-                <a href="/subscribe/" class="sidenav-trigger" style="float:right;height: 20px;background-color: white;top: 1.2rem;line-height: 0;color: black;padding: 0.8rem;border-radius: 5rem;font-weight: 550;">Subscribe</a>
+                <a href="/subscribe/" class="sidenav-trigger" style="float:right;"><b style="background-color: white;padding: 0.3rem 0.6rem;border-radius: 5rem;color: black;font-size: 0.9rem;">Subscribe</b></a>
             {% else %}
                 <a href="/blog/" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a>
             {% endif %}

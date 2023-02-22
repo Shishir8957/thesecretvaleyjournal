@@ -65,6 +65,11 @@
             <a href="#" class="sidenav-trigger" data-target="mobile-menu">
                 <i class="bi bi-list"></i>
             </a>
+            {% if not user.is_authenticated %}
+                <a href="/subscribe/" class="sidenav-trigger" style="float:right;"><b style="background-color: white;padding: 0.3rem 0.6rem;border-radius: 5rem;color: black;font-size: 0.9rem;">Subscribe</b></a>
+            {% else %}
+                <a href="/blog/" class="sidenav-trigger" style="float:right;"><i class="bi bi-search" style="font-size:1.4rem;"></i></a>
+            {% endif %}
             <ul class="right hide-on-med-and-down">
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/service">Services</a></li>
