@@ -566,8 +566,8 @@
                                             <a>{{comment.timestamp | naturaltime}}</a>
                                             {% if comment.user.id is user.id %}
                                                 <!-- trigger for deleting comment  -->
-                                                &nbsp;&nbsp;<a class="modal-trigger" href="#modal2"><i style="font-size:1.2rem;padding:0px;margin:0px;color:#e61818" class="bi bi-trash-fill right"></i></a>
-                                                <div id="modal2" class="modal" style="height:auto;">
+                                                &nbsp;&nbsp;<a class="modal-trigger" href="#modal{{comment.sno}}"><i style="font-size:1.2rem;padding:0px;margin:0px;color:#e61818" class="bi bi-trash-fill right"></i></a>
+                                                <div id="modal{{comment.sno}}" class="modal" style="height:auto;">
                                                     <div class="modal-content" style="border-bottom: 0px">
                                                         <h3>Delete this comment</h3>
                                                         <p> {{comment.comment}}</p>
