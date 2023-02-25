@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
+from homepage.models import subscriptionEmail
 import secrets
 import string
     
@@ -48,6 +49,10 @@ def activateUser(request,slug):
             user = token.user
             user.is_active=True
             user.save();
+            try:
+                subscriptionEmail.objects.create(email=request.user.email).save()
+            except:
+                pass
             randomString.objects.filter(random=slug).delete()
             messages.info(request,'Enter your credientials')
             return render(request,'account.html',{'color':True})
