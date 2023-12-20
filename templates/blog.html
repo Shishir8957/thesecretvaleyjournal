@@ -88,7 +88,13 @@
         #newsCard:hover{
             box-shadow: 1px 3px 10px #bdb5b5;
         }    
-        
+        .card1 {
+            background-color: #f0f2f5;
+            padding: 0;
+            border: 1px solid #cfd6df;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
         .card {
             position: unset;
             background-color: #0000004a;
@@ -438,7 +444,7 @@
             </div>    
         </div>
         <!-- body -->
-        <div class="container blogimg bodycontainer" >
+        <div class="container blogimg bodycontainer" style="padding: 1rem;margin-bottom: 1rem;background-color: #80808040;">
             <div class="container center blog_img" style="width:100%;padding: 0;">
                 <img src="/media/{{content.display_img}}" alt="" style="width: 100%;">
                 <figurecaption style="color: #000000a6;"><i>fig:{{content.display_img_caption}}</i></figurecaption>
@@ -590,7 +596,7 @@
                     <h4>Comments</h4>
                     <br><h5><i class="bi bi-exclamation-circle-fill left"></i> Login To Comment </h5><br>
                     {% for comment in comments %}
-                        <div class="card" style="background-color:#f0f2f5; padding:0;">
+                        <div class="card1" style="background-color:#f0f2f5; padding:0;">
                             <div class="card-body" style="padding:1rem">
                                 <div class="d-flex justify-content-between" style="margin-bottom: 1rem;">
                                     <div class="d-flex flex-row align-items-center">

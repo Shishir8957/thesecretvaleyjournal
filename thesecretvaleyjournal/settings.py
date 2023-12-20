@@ -160,6 +160,9 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# set the maximum file size to 100MB (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 104857600
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 

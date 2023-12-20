@@ -8,6 +8,7 @@ from .models import *
 from homepage.models import subscriptionEmail
 import secrets
 import string
+from django.db.models import Q
     
 def error404(request):
     return render(request,'404.html')
@@ -64,14 +65,15 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        userTry = User.objects.filter(Q(username=username) | Q(email=username))
 
-        try:
-            userTry = User.objects.get(username=username)
-        except:
-            userTry = User.objects.get(email=username)
-            
-        user = auth.authenticate(username=userTry.username, password=password)
-        
+        if User.objects.filter(Q(username=username) | Q(email=username)).exists():
+            if userTry != None:
+                user = auth.authenticate(username=userTry[0].username, password=password)
+        else:
+            messages.info(request,'Invalid credentials')
+            return redirect('/register/')
+
         if user is not None:
             auth.login(request, user)
             if 'next' in request.POST:

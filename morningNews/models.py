@@ -16,7 +16,7 @@ class Catagory(models.Model):
 
 class News(models.Model):
     title = models.CharField(max_length=200,null=True)
-    date = models.DateTimeField(default=now)
+    date = models.DateTimeField(default=now,null=True)
     message = models.TextField(blank=True,null=True)
     publish = models.BooleanField(default=False)
     def __str__(self):
