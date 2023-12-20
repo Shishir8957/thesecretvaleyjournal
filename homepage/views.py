@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from .models import Contact,subscriptionEmail,headerImg,FeatureArticle
+from .models import Contact,subscriptionEmail,headerImg,FeatureArticle,SelectedUrls
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import re
@@ -50,16 +50,18 @@ def contact(request):
 @user_passes_test(lambda u: u.is_superuser)
 def invitelinklest(request):
     mail = subscriptionEmail.objects.all()
+    urls = str(SelectedUrls.objects.first())
     for email in mail:
         subject = 'New blog is here!'
         letest = blogField.objects.last()
         html_message = render_to_string('blog_email.html',{'blog':letest,'email':email})
         plain_message = strip_tags(html_message)
         send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
-    return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href="http://127.0.0.1:8000/" style="margin:1rem;" type="submit"> Return to home </a></div>')
+    return HttpResponse('<div style="text-align: center; margin: 17rem;">New Blog is there <br> <a href='+urls+' style="margin:1rem;" type="submit"> Return to home </a></div>')
 
 def subscribe(request):
     if request.method == 'POST':
+        urls = str(SelectedUrls.objects.first())
         email = request.POST.get('email')
 
         if subscriptionEmail.objects.filter(email=email).exists():
@@ -70,7 +72,7 @@ def subscribe(request):
             subscribe=subscriptionEmail(email=email)
             subscribe.save()
             subject = 'Thank you for subscribing'
-            html_message = render_to_string('contact_form.html', {'email': email})
+            html_message = render_to_string('contact_form.html', {'email': email,'urls':urls})
             plain_message = strip_tags(html_message)
             send_mail(subject, plain_message, 'royell4912@gmail.com', [email], html_message=html_message)
             color = True

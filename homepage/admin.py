@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Contact,subscriptionEmail,headerImg,FeatureArticle
+from .models import Contact,subscriptionEmail,headerImg,FeatureArticle,domainUrl,SelectedUrls
 # Register your models here.
 
 class ContactUsAdmin(admin.ModelAdmin):
@@ -16,3 +16,5 @@ admin.site.register(Contact,ContactUsAdmin)
 admin.site.register(subscriptionEmail)
 admin.site.register(headerImg,headerImgAdmin)
 admin.site.register(FeatureArticle)
+admin.site.register(domainUrl)
+admin.site.register(SelectedUrls)

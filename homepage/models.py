@@ -25,6 +25,17 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+class domainUrl(models.Model):
+    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    urls = models.TextField(max_length=200,unique=True)
+    def __str__(self):
+        return self.urls
+    
+class SelectedUrls(models.Model):
+    SelectedUrls = models.ForeignKey(domainUrl,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.SelectedUrls.urls
+    
 class subscriptionEmail(models.Model):
     email = models.EmailField(max_length=200,unique=True)
     def __str__(self):
