@@ -89,8 +89,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'republic2',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
+        'USER': 'postgres',
+        'PASSWORD': '1532',
         'HOST': 'localhost',
     }
 }
