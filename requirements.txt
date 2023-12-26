@@ -20,7 +20,7 @@ decorator==5.1.1
 defusedxml==0.7.1
 distlib==0.3.4
 dj-database-url==0.5.0
-Django==3.2.9
+Django==3.2.23
 django-bona-blog==1.1.4
 django-ckeditor==6.0.0
 django-cleanup==2.1.0
