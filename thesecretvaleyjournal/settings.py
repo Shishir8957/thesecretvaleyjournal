@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'privacy_policy',
     'django.contrib.humanize',
     'morningNews',
+    'fileshare',
 ]
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'republic2',
+        'NAME': 'republic',
         'USER': 'postgres',
         'PASSWORD': '1532',
         'HOST': 'localhost',

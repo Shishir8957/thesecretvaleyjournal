@@ -12,6 +12,7 @@ class headerImgAdmin(admin.ModelAdmin):
     def images(self,obj):
         return format_html(f'<img src="/media/{obj.img}" style="height:55px;width:100px;" >')
 
+
 admin.site.register(Contact,ContactUsAdmin)
 admin.site.register(subscriptionEmail)
 admin.site.register(headerImg,headerImgAdmin)
