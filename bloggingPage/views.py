@@ -15,11 +15,12 @@ def extract_mentions(comment_text):
 
 def tags_detail(request,slug):
   post = Tags.objects.get(slug__iexact=slug)
-  print(post)
   return render(request,'all_blog.html',{'tag':post})
  
 def blog(request,slug):
   post = blogField.objects.get(slug=slug)
+  tag = Tags.objects.get(title__iexact=post.blog_catagory.title)
+  # print(type())
   comments = BlogComment.objects.filter(post=post).order_by('-timestamp')
   if not request.user.is_superuser:
     blogField.objects.filter(slug=slug).update(views=F('views')+1)
@@ -31,8 +32,8 @@ def blog(request,slug):
     for likes in likePost.objects.filter(post=post):
       if likes.user == request.user:
           like = likes
-          return render(request,'blog.html',{'content':post,'comments':comments,'like':like})
-  return render(request,'blog.html',{'content':post,'comments':comments})
+          return render(request,'blog.html',{'content':post,'comments':comments,'like':like,'tag':tag})
+  return render(request,'blog.html',{'content':post,'comments':comments,'tag':tag})
 
 def all_blog(request):
   tags = Tags.objects.all()

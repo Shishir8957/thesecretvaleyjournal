@@ -1,4 +1,4 @@
-import imp,random
+import random
 from django.shortcuts import render,redirect
 from bloggingPage.models import *
 from django.contrib import messages 

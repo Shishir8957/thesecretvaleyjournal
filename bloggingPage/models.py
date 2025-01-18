@@ -5,14 +5,17 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 # from django.contrib.auth.models import AbstractUser
 
-# class User(AbstractUser):
-#     pass
+# class Tags(models.Model):
+#     name = models.CharField(max_length=50)
+#     slug = models.SlugField(max_length=200,unique=True)
+#     def __str__(self):
+#         return self.name
 
 class Tags(models.Model):
-    name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200,unique=True)
     def __str__(self):
-        return self.name
+        return self.title
  
 class publishingUser(models.Model):
     name = models.CharField(max_length=30)
@@ -31,12 +34,6 @@ class position(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
-
-class Tags(models.Model):
-    title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=200,unique=True)
-    def __str__(self):
-        return self.title
 
 class blogField(models.Model):
     sno = models.AutoField(primary_key= True)
