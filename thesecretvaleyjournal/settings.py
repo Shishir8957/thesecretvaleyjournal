@@ -21,12 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from thesecretvaleyjournal  .settings import get_secret
-SECRET_KEY = get_secret('SECRET_KEY')
+SECRET_KEY = 'django-insecure-kzrf0u$p7=lhj9ugq%l9byy#9h9e$pr+h9w5lvpvu36lb#xv=e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = ['52.140.98.178']
 
 
 # Application definition
@@ -87,21 +86,25 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DB_NAME="sasori"
-DB_USER_NM="sasori_username"
-DB_USER_PW="sasori_password"
-DB_IP="127.0.0.1"
-DB_PORT="5432"  # Default PostgreSQL port
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER_NM,
-        "PASSWORD": DB_USER_PW,
-        "HOST": DB_IP,
-        "PORT": DB_PORT,
+        'NAME': 'sasori',
+        'USER': 'sasori_username',
+        'PASSWORD': 'sasori_password',
+        'HOST': 'localhost',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'republicktm',
+#         'USER': 'postgres',
+#         'PASSWORD': '1532',
+#         'HOST': 'localhost',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
