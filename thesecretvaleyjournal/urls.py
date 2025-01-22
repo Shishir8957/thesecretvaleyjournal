@@ -26,6 +26,7 @@ admin.site.index_title = "Welcome RepublicKtm Admin Panel"
 urlpatterns = [
     path('republic_ktm_4912/', admin.site.urls),
     path('',include('homepage.urls')),
+    path('sasoriapi',include('api.urls')),
     path('',include('social_django.urls')),
     path('register/',include('register.urls')),
     path('blog/',include('bloggingPage.urls')),

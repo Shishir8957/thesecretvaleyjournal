@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kzrf0u$p7=lhj9ugq%l9byy#9h9e$pr+h9w5lvpvu36lb#xv=e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['52.140.98.178']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -86,25 +86,25 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sasori',
-        'USER': 'sasori_username',
-        'PASSWORD': 'sasori_password',
-        'HOST': 'localhost',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'republicktm',
-#         'USER': 'postgres',
-#         'PASSWORD': '1532',
+#         'NAME': 'sasori',
+#         'USER': 'sasori_username',
+#         'PASSWORD': 'sasori_password',
 #         'HOST': 'localhost',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '1532',
+        'HOST': 'localhost',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -174,18 +174,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 104857600
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static",  # Local static files during development
 ]
-STATIC_ROOT = "/static/"
-# if DEBUG:
-#     STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-# else:
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-    
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collectstatic gathers files for production
+
+# Media files (User uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Adjust STATICFILES_DIRS and STATIC_ROOT based on DEBUG
+if not DEBUG:
+    STATICFILES_DIRS = []  # Not needed in production
+
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

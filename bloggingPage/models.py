@@ -39,7 +39,7 @@ class blogField(models.Model):
     sno = models.AutoField(primary_key= True)
     title = models.CharField(max_length=200,unique=True)
     slug = models.SlugField(max_length=200,unique=True)
-    date = models.DateField(default=date.today)
+    date = models.DateField(default=date.today) 
     author = models.ForeignKey(publishingUser,on_delete=models.CASCADE)
     position = models.ForeignKey(position,on_delete=models.CASCADE)
     blog_catagory = models.ForeignKey(BlogCatagory,on_delete=models.CASCADE)

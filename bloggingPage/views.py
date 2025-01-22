@@ -19,8 +19,7 @@ def tags_detail(request,slug):
  
 def blog(request,slug):
   post = blogField.objects.get(slug=slug)
-  tag = Tags.objects.get(title__iexact=post.blog_catagory.title)
-  # print(type())
+  tag = Tags.objects.filter(title__iexact=post.blog_catagory.title).first()
   comments = BlogComment.objects.filter(post=post).order_by('-timestamp')
   if not request.user.is_superuser:
     blogField.objects.filter(slug=slug).update(views=F('views')+1)

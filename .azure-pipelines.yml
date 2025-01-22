@@ -1,0 +1,50 @@
+trigger:
+  - production  # Branch to trigger the pipeline
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  VM_IP: '52.140.98.178'
+  USERNAME: 'azureuser'
+  GUNICORN_SERVICE: 'gunicorn.service'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: InstallDependencies
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.x'
+              addToPath: true
+
+          - script: |
+              python -m venv env
+              source env/bin/activate
+              pip install -r requirements.txt
+            displayName: Install Python Dependencies
+
+  - stage: Deploy
+    dependsOn: Build
+    jobs:
+      - deployment: DeployToVM
+        environment: Production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: CopyFilesOverSSH@0
+                  inputs:
+                    sshEndpoint: 'VM_SSH_CONNECTION'
+                    sourceFolder: '$(Build.SourcesDirectory)'
+                    targetFolder: '/home/$(USERNAME)/app'
+
+                - task: SSH@0
+                  inputs:
+                    sshEndpoint: 'VM_SSH_CONNECTION'
+                    script: |
+                      cd /home/$(USERNAME)/app
+                      source env/bin/activate
+                      pip install -r requirements.txt
+                      sudo systemctl restart $(GUNICORN_SERVICE)
