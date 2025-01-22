@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kzrf0u$p7=lhj9ugq%l9byy#9h9e$pr+h9w5lvpvu36lb#xv=e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['52.140.98.178']
 
 
 # Application definition
@@ -86,25 +86,26 @@ WSGI_APPLICATION = 'thesecretvaleyjournal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'sasori',
-#         'USER': 'sasori_username',
-#         'PASSWORD': 'sasori_password',
-#         'HOST': 'localhost',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1532',
+        'NAME': 'sasori',
+        'USER': 'sasori_username',
+        'PASSWORD': 'sasori_password',
         'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': '1532',
+#         'HOST': 'localhost',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
