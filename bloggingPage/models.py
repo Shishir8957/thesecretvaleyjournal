@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.utils.text import slugify
 # from django.contrib.auth.models import AbstractUser
 
 # class Tags(models.Model):
@@ -52,6 +53,17 @@ class blogField(models.Model):
     discription = models.TextField(blank=True)
     content = models.TextField(blank=True)
     publish = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        # Auto-generate the slug from the title before saving
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        # Ensure the slug is unique
+        while blogField.objects.filter(slug=self.slug).exists():
+            self.slug = f"{self.slug}-{self.sno}"
+
+        super(blogField, self).save(*args, **kwargs)
  
     def __str__(self):
         return self.title
